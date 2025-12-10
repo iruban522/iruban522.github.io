@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ruban Jeba Kumar | Data & Analytics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --primary: #2563eb;
+      --dark: #0f172a;
+      --light: #f9fafb;
+      --accent: #f97316;
+      --text: #111827;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: #ffffff;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: white;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    nav .logo {
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: 0.05em;
+    }
+
+    nav a {
+      color: #e5e7eb;
+      text-decoration: none;
+      margin-left: 1rem;
+      font-size: 0.95rem;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 2fr 1.2fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: 2.4rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: #e5e7eb;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(248, 250, 252, 0.08);
+      font-size: 0.8rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-badge span {
+      background: var(--accent);
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      margin-right: 0.4rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.2rem;
+    }
+
+    .btn-primary,
+    .btn-outline {
+      padding: 0.6rem 1.2rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #e5e7eb;
+      border-color: #475569;
+    }
+
+    section {
+      padding: 3rem 1.5rem;
+    }
+
+    section:nth-of-type(odd) {
+      background: var(--light);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 2rem;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      font-size: 0.8rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      background: white;
+      border: 1px solid #e5e7eb;
+    }
+
+    .contact-box {
+      background: white;
+      border-radius: 1rem;
+      padding: 1.5rem 1.75rem;
+      border: 1px solid #e5e7eb;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+      background: #0b1120;
+      color: #e5e7eb;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <nav>
+      <div class="logo">RUBAN JEBA KUMAR</div>
+      <div>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <h1 class="hero-title">Data & Analytics Professional</h1>
+    <p class="hero-subtitle">
+      Turning raw data into clear insights using SQL and analytics to help teams make better decisions.
+    </p>
+  </div>
+</header>
+
+<section id="about">
+  <div class="container grid-2">
+    <div>
+      <h2>About Me</h2>
+      <p>
+        I’m <strong>Ruban Jeba Kumar</strong>, a data professional with a strong focus on
+        SQL, data pipelines, and analytics.
+      </p>
+    </div>
+
+    <div>
+      <h2>Core Skills</h2>
+      <div class="tag-list">
+        <span class="tag">SQL</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">Amazon Redshift</span>
+        <span class="tag">ETL / ELT</span>
+        <span class="tag">Data Modeling</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <h2>Let’s Connect</h2>
+    <div class="contact-box">
+      <div>
+        <p><strong>Email:</strong> <a href="mailto:iruban522@gmail.com">iruban522@gmail.com</a></p>
+        <p><strong>LinkedIn:</strong> 
+          <a href="https://www.linkedin.com/in/i-ruban-jebakumar-32a47027b" target="_blank">
+            linkedin.com/in/i-ruban-jebakumar-32a47027b
+          </a>
+        </p>
+        <p><strong>Mobile:</strong> <a href="tel:+918098294971">+91 80982 94971</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2025 Ruban Jeba Kumar
+</footer>
+
+</body>
+</html>
