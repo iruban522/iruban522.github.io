@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Ruban Jeba Kumar I | Data & Analytics</title>
+  <title>Ruban Jeba Kumar | Data & Analytics</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
@@ -194,6 +194,14 @@
       border: 1px solid rgba(148, 163, 184, 0.5);
       box-shadow: 0 10px 20px rgba(15, 23, 42, 0.7);
       margin-top: 0.2rem;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    /* hover glow */
+    .data-visual:hover {
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.6),
+                  0 0 40px rgba(59, 130, 246, 0.4);
+      transform: translateY(-2px);
     }
 
     .data-bar {
@@ -219,6 +227,24 @@
       color: #cbd5f5;
       margin-left: 0.25rem;
       white-space: nowrap;
+    }
+
+    /* fade-in animation for company name */
+    @keyframes fadeInSoft {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .company-name {
+      animation: fadeInSoft 1.4s ease forwards;
+      animation-delay: 0.6s;
+      opacity: 0;
     }
 
     /* SECTIONS */
@@ -400,7 +426,7 @@
 <header>
   <div class="container">
     <nav>
-      <div class="logo">RUBAN JEBA KUMAR I</div>
+      <div class="logo">RUBAN JEBA KUMAR</div>
       <div>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
@@ -419,26 +445,27 @@
       </p>
 
       <div class="hero-profile">
-  <img src="profile.jpg" alt="Ruban Jeba Kumar">
+        <img src="profile.jpg" alt="Ruban Jeba Kumar">
 
-  <div class="data-visual">
-    <div class="data-bar"></div>
-    <div class="data-bar"></div>
-    <div class="data-bar"></div>
+        <div class="data-visual">
+          <div class="data-bar"></div>
+          <div class="data-bar"></div>
+          <div class="data-bar"></div>
 
-    <!-- ✅ TEXT BLOCK (STACKED) -->
-    <div style="display:flex;flex-direction:column;align-items:center;line-height:1.2;">
-      <div class="data-visual-label">IDMC Consultant</div>
-      <span style="font-size:0.68rem; color:#93c5fd;">Inflecto Technologies</span>
-    </div>
+          <!-- stacked text block -->
+          <div style="display:flex;flex-direction:column;align-items:center;line-height:1.2;">
+            <div class="data-visual-label">IDMC Consultant</div>
+            <span class="company-name" style="font-size:0.68rem; color:#93c5fd;">
+              Inflecto Technologies
+            </span>
+          </div>
 
-    <div class="data-bar"></div>
-    <div class="data-bar"></div>
-    <div class="data-bar"></div>
-  </div>
-</div>
-
+          <div class="data-bar"></div>
+          <div class="data-bar"></div>
+          <div class="data-bar"></div>
+        </div>
       </div>
+
     </div>
   </div>
 </header>
@@ -454,7 +481,7 @@
       <div class="grid-2">
         <div class="section-text">
           <p>
-              I’m <strong>Ruban Jeba Kumar</strong>, an experienced ETL Developer with 4+ years of hands-on experience in data engineering and analytics. 
+            I’m <strong>Ruban Jeba Kumar</strong>, an experienced ETL Developer with 4+ years of hands-on experience in data engineering and analytics. 
             I specialize in SQL, data pipelines, ETL processes, and building reliable, scalable data systems. 
             I enjoy developing performance-optimized queries and well-structured data models that make reporting easier and more impactful.
           </p>
@@ -520,8 +547,3 @@
 
 </body>
 </html>
-
-
-
-
-
