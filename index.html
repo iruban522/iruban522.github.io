@@ -4,7 +4,12 @@
   <meta charset="UTF-8" />
   <title>Ruban Jeba Kumar | Data & Analytics</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- ================================
+       GLOBAL STYLES & THEME VARIABLES
+       ================================ -->
   <style>
+    /* ---- Color variables for the whole site ---- */
     :root {
       --primary: #2563eb;
       --dark: #020617;
@@ -15,6 +20,7 @@
       --muted: #6b7280;
     }
 
+    /* ---- Reset + default font ---- */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -32,7 +38,9 @@
       text-decoration: none;
     }
 
-    /* HEADER + NAV */
+    /* ==========================
+       HEADER + NAV + HERO SECTION
+       ========================== */
 
     header {
       color: white;
@@ -44,6 +52,7 @@
       overflow: hidden;
     }
 
+    /* Animated gradient background */
     @keyframes gradientShift {
       0% {
         background-position: 0% 0%;
@@ -60,6 +69,7 @@
       z-index: 2;
     }
 
+    /* ---- Navigation bar ---- */
     nav {
       display: flex;
       justify-content: space-between;
@@ -102,8 +112,7 @@
       width: 100%;
     }
 
-    /* HERO */
-
+    /* ---- Hero text area ---- */
     .hero {
       text-align: center;
       max-width: 720px;
@@ -136,6 +145,7 @@
       margin-right: auto;
     }
 
+    /* Small badge above title */
     .hero-badge {
       display: inline-flex;
       align-items: center;
@@ -157,7 +167,9 @@
       box-shadow: 0 0 10px rgba(249, 115, 22, 0.8);
     }
 
-    /* PROFILE IMAGE + DATA ANIM */
+    /* =============================
+       PROFILE PICTURE + DATA BADGE
+       ============================= */
 
     .hero-profile {
       margin-top: 1.4rem;
@@ -167,6 +179,7 @@
       gap: 0.9rem;
     }
 
+    /* Profile image styling */
     .hero-profile img {
       width: 170px;
       max-width: 45vw;
@@ -184,6 +197,7 @@
       box-shadow: 0 25px 55px rgba(15, 23, 42, 1);
     }
 
+    /* Pill-shaped data badge under the photo */
     .data-visual {
       display: flex;
       align-items: flex-end;
@@ -197,13 +211,14 @@
       transition: box-shadow 0.3s ease, transform 0.3s ease;
     }
 
-    /* hover glow */
+    /* Glow effect when hovering badge */
     .data-visual:hover {
       box-shadow: 0 0 20px rgba(34, 197, 94, 0.6),
                   0 0 40px rgba(59, 130, 246, 0.4);
       transform: translateY(-2px);
     }
 
+    /* Animated mini “data bars” */
     .data-bar {
       width: 5px;
       border-radius: 999px;
@@ -229,7 +244,7 @@
       white-space: nowrap;
     }
 
-    /* fade-in animation for company name */
+    /* Fade-in animation for company name */
     @keyframes fadeInSoft {
       from {
         opacity: 0;
@@ -247,7 +262,9 @@
       opacity: 0;
     }
 
-    /* SECTIONS */
+    /* ===================
+       MAIN PAGE SECTIONS
+       =================== */
 
     main {
       background: radial-gradient(circle at top, #0f172a 0, #020617 40%, #020617 100%);
@@ -304,7 +321,9 @@
       margin-top: 0.7rem;
     }
 
-    /* TAGS (SKILLS) */
+    /* =================
+       SKILL TAG “CHIPS”
+       ================= */
 
     .tag-list {
       display: flex;
@@ -331,46 +350,71 @@
       background: rgba(15, 23, 42, 1);
     }
 
-    /* CONTACT */
+    /* ==========================
+       CONTACT FORM (NEW SECTION)
+       ========================== */
 
-    .contact-box p {
-      font-size: 0.98rem;
-      margin-bottom: 0.2rem;
+    /* Card container around the form (reuses .section-inner) */
+    .contact-intro {
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      color: #e5e7eb;
     }
 
-    .contact-box a {
-      color: #bfdbfe;
-      text-decoration: none;
+    /* Actual form layout and inputs */
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #020617;
+      padding: 2rem;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
     }
 
-    .contact-box a:hover {
-      text-decoration: underline;
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      border-radius: 10px;
+      border: 1px solid #cbd5f5;
+      font-size: 0.95rem;
+      outline: none;
+      background: #f9fafb;
     }
 
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.35rem;
-      margin-top: 1rem;
-      padding: 0.8rem 1.4rem;
-      border-radius: 999px;
-      background: linear-gradient(to right, #2563eb, #4f46e5);
-      color: white;
-      font-size: 0.92rem;
+    .contact-form textarea {
+      height: 120px;
+      resize: none;
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+      color: #6b7280;
+    }
+
+    .contact-form button {
+      width: 100%;
+      background: #e6e61a;
+      color: #000;
       border: none;
+      padding: 14px;
+      font-size: 1rem;
+      border-radius: 999px;
       cursor: pointer;
-      box-shadow: 0 16px 35px rgba(37, 99, 235, 0.55);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .btn-primary:hover {
+    .contact-form button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 22px 40px rgba(37, 99, 235, 0.7);
-      filter: brightness(1.05);
+      box-shadow: 0 12px 25px rgba(230, 230, 26, 0.6);
     }
 
-    /* FOOTER */
+    /* ==========
+       FOOTER
+       ========== */
 
     footer {
       text-align: center;
@@ -381,7 +425,9 @@
       border-top: 1px solid rgba(30, 64, 175, 0.6);
     }
 
-    /* RESPONSIVE */
+    /* ==================
+       RESPONSIVE TWEAKS
+       ================== */
 
     @media (max-width: 820px) {
       nav {
@@ -423,127 +469,142 @@
 
 <body>
 
-<header>
-  <div class="container">
-    <nav>
-      <div class="logo">RUBAN JEBA KUMAR</div>
-      <div>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </div>
-    </nav>
-
-    <div class="hero">
-      <div class="hero-badge">
-        <span class="dot"></span>
-        Trailblazer of the Month – Nov 2025 · Inflecto Technologies
-      </div>
-
-      <h1 class="hero-title">Data &amp; Analytics Professional</h1>
-      <p class="hero-subtitle">
-        Turning raw data into clear insights using SQL, data pipelines, and analytics to help teams make better, faster decisions.
-      </p>
-
-      <div class="hero-profile">
-        <img src="profile.jpg" alt="Ruban Jeba Kumar">
-
-        <div class="data-visual">
-          <div class="data-bar"></div>
-          <div class="data-bar"></div>
-          <div class="data-bar"></div>
-
-          <!-- stacked text block -->
-          <div style="display:flex;flex-direction:column;align-items:center;line-height:1.2;">
-            <div class="data-visual-label">IDMC Consultant</div>
-            <span class="company-name" style="font-size:0.68rem; color:#93c5fd;">
-              Inflecto Technologies
-            </span>
-          </div>
-
-          <div class="data-bar"></div>
-          <div class="data-bar"></div>
-          <div class="data-bar"></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</header>
-
-<main>
-  <section id="about">
-    <div class="section-inner">
-      <div class="section-header">
-        <h2 class="section-title">Profile & Skills</h2>
-        <span class="section-pill">Data Engineering · Analytics</span>
-      </div>
-
-      <div class="grid-2">
-        <div class="section-text">
-          <p>
-            I’m <strong>Ruban Jeba Kumar</strong>, an experienced ETL Developer with 4+ years of hands-on experience in data engineering and analytics. 
-            I specialize in SQL, data pipelines, ETL processes, and building reliable, scalable data systems. 
-            I enjoy developing performance-optimized queries and well-structured data models that make reporting easier and more impactful.
-          </p>
-          <p>
-            I care about clarity, performance, and reliability in everything I build—from stored procedures
-            and delta frameworks to job monitoring and production-ready datasets.
-          </p>
-        </div>
-
+  <!-- ========================
+       HEADER + HERO + PROFILE
+       ======================== -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">RUBAN JEBA KUMAR</div>
         <div>
-          <h3 style="font-size:1.05rem;margin-bottom:0.9rem;">Core Skills</h3>
-          <div class="tag-list">
-            <span class="tag">SQL</span>
-            <span class="tag">PostgreSQL</span>
-            <span class="tag">Amazon Redshift AWS</span>
-            <span class="tag">ETL / ELT</span>
-            <span class="tag">Data Modeling</span>
-            <span class="tag">Data Warehousing</span>
-            <span class="tag">Informatica PC / IDMC</span>
-            <span class="tag">Tableau</span>
-            <span class="tag">Salesforce / CRM</span>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+
+      <div class="hero">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Trailblazer of the Month – Nov 2025 · Inflecto Technologies
+        </div>
+
+        <h1 class="hero-title">Data &amp; Analytics Professional</h1>
+        <p class="hero-subtitle">
+          Turning raw data into clear insights using SQL, data pipelines, and analytics to help teams make better, faster decisions.
+        </p>
+
+        <div class="hero-profile">
+          <img src="profile.jpg" alt="Ruban Jeba Kumar">
+
+          <!-- Animated “data badge” with role + company -->
+          <div class="data-visual">
+            <div class="data-bar"></div>
+            <div class="data-bar"></div>
+            <div class="data-bar"></div>
+
+            <!-- Text block stacked vertically -->
+            <div style="display:flex;flex-direction:column;align-items:center;line-height:1.2;">
+              <div class="data-visual-label">IDMC Consultant</div>
+              <span class="company-name" style="font-size:0.68rem; color:#93c5fd;">
+                Inflecto Technologies
+              </span>
+            </div>
+
+            <div class="data-bar"></div>
+            <div class="data-bar"></div>
+            <div class="data-bar"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================
+       ABOUT + CORE SKILLS BLOCK
+       ========================= -->
+  <main>
+    <section id="about">
+      <div class="section-inner">
+        <div class="section-header">
+          <h2 class="section-title">Profile &amp; Skills</h2>
+          <span class="section-pill">Data Engineering · Analytics</span>
+        </div>
+
+        <div class="grid-2">
+          <!-- Left side: profile description -->
+          <div class="section-text">
+            <p>
+              I’m <strong>Ruban Jeba Kumar</strong>, an experienced ETL Developer with 4+ years of hands-on experience in data engineering and analytics.
+              I specialize in SQL, data pipelines, ETL processes, and building reliable, scalable data systems.
+              I enjoy developing performance-optimized queries and well-structured data models that make reporting easier and more impactful.
+            </p>
+            <p>
+              I care about clarity, performance, and reliability in everything I build—from stored procedures
+              and delta frameworks to job monitoring and production-ready datasets.
+            </p>
+          </div>
+
+          <!-- Right side: skills as tags -->
+          <div>
+            <h3 style="font-size:1.05rem;margin-bottom:0.9rem;">Core Skills</h3>
+            <div class="tag-list">
+              <span class="tag">SQL</span>
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">Amazon Redshift AWS</span>
+              <span class="tag">ETL / ELT</span>
+              <span class="tag">Data Modeling</span>
+              <span class="tag">Data Warehousing</span>
+              <span class="tag">Informatica PC / IDMC</span>
+              <span class="tag">Tableau</span>
+              <span class="tag">Salesforce / CRM</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="contact">
-    <div class="section-inner">
-      <div class="section-header">
-        <h2 class="section-title">Let’s Connect</h2>
-        <span class="section-pill">Open to Data / Analytics Roles</span>
-      </div>
+    <!-- =====================
+         CONTACT FORM SECTION
+         ===================== -->
+    <section id="contact">
+      <div class="section-inner">
+        <div class="section-header">
+          <h2 class="section-title">Let’s Connect</h2>
+          <span class="section-pill">Send me a message</span>
+        </div>
 
-      <div class="contact-box">
-        <p>
-          <strong>Email:</strong>
-          <a href="mailto:iruban522@gmail.com">iruban522@gmail.com</a>
+        <!-- Short description above the form -->
+        <p class="contact-intro">
+          If you’d like to discuss data engineering, ETL work, or analytics opportunities, feel free to drop a message below.
+          I’ll get back to you as soon as possible.
         </p>
 
-        <p>
-          <strong>LinkedIn:</strong>
-          <a href="https://www.linkedin.com/in/i-ruban-jebakumar-32a47027b" target="_blank">
-            linkedin.com/in/i-ruban-jebakumar-32a47027b
-          </a>
-        </p>
+        <!-- Contact form (name, email, phone, message) -->
+        <!-- NOTE: Replace the "action" URL with your real Formspree form URL when you create it -->
+        <form class="contact-form" action="https://formspree.io/f/your-form-id-here" method="POST">
+          <input type="text" name="name" placeholder="Name *" required>
+          <input type="email" name="email" placeholder="Email *" required>
+          <input type="text" name="phone" placeholder="Phone number *" required>
+          <textarea name="message" placeholder="Message" required></textarea>
 
-        <a class="btn-primary" href="Ruban_Jeba_Kumar_Resume.pdf" download>
-          📄 Download My Resume
-        </a>
+          <button type="submit">Send</button>
+        </form>
       </div>
-    </div>
-  </section>
-</main>
+    </section>
+  </main>
 
-<footer>
-  © <span id="year"></span> Ruban Jeba Kumar · Data &amp; Analytics
-</footer>
+  <!-- ========
+       FOOTER
+       ======== -->
+  <footer>
+    © <span id="year"></span> Ruban Jeba Kumar · Data &amp; Analytics
+  </footer>
 
-<script>
-  document.getElementById("year").textContent = new Date().getFullYear();
-</script>
+  <!-- Small script just to keep the year current in the footer -->
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 
 </body>
 </html>
