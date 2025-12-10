@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <title>Ruban Jeba Kumar | Data & Analytics</title>
-  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/2942/2942789.png">
+  <!-- Use your logo as favicon -->
+  <link rel="icon" type="image/png" href="logo.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Icons for email & LinkedIn -->
@@ -74,10 +75,24 @@
       margin-bottom: 2.5rem;
     }
 
+    /* Logo container */
     nav .logo {
-      font-weight: 800;
-      font-size: 1.25rem;
-      letter-spacing: 0.09em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    nav .logo img {
+      height: 42px;
+      width: auto;
+      border-radius: 0.75rem;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.6);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    nav .logo img:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.9);
     }
 
     nav a {
@@ -437,7 +452,10 @@
 <header>
   <div class="container">
     <nav>
-      <div class="logo">RUBAN JEBA KUMAR I</div>
+      <div class="logo">
+        <!-- Your image logo -->
+        <img src="logo.png" alt="Ruban Jeba Kumar Logo">
+      </div>
       <div>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
@@ -580,5 +598,3 @@
 
 </body>
 </html>
-
-
