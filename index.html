@@ -350,18 +350,66 @@
       background: rgba(15, 23, 42, 1);
     }
 
+    /* =====================
+       CONTACT BOX (DETAILS)
+       ===================== */
+
+    .contact-box {
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: 18px;
+      padding: 1.6rem 1.8rem;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      margin-bottom: 1.8rem;
+    }
+
+    .contact-box p {
+      font-size: 0.98rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .contact-box a {
+      color: #bfdbfe;
+      text-decoration: none;
+    }
+
+    .contact-box a:hover {
+      text-decoration: underline;
+    }
+
+    /* Primary button (used for Resume) */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      margin-top: 1rem;
+      padding: 0.8rem 1.4rem;
+      border-radius: 999px;
+      background: linear-gradient(to right, #2563eb, #4f46e5);
+      color: white;
+      font-size: 0.92rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 16px 35px rgba(37, 99, 235, 0.55);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 40px rgba(37, 99, 235, 0.7);
+      filter: brightness(1.05);
+    }
+
     /* ==========================
        CONTACT FORM (NEW SECTION)
        ========================== */
 
-    /* Card container around the form (reuses .section-inner) */
     .contact-intro {
       font-size: 0.95rem;
       margin-bottom: 1.5rem;
       color: #e5e7eb;
     }
 
-    /* Actual form layout and inputs */
     .contact-form {
       max-width: 600px;
       margin: 0 auto;
@@ -565,23 +613,42 @@
     </section>
 
     <!-- =====================
-         CONTACT FORM SECTION
+         CONTACT SECTION
+         EMAIL + LINKEDIN + FORM
          ===================== -->
     <section id="contact">
       <div class="section-inner">
         <div class="section-header">
           <h2 class="section-title">Let’s Connect</h2>
-          <span class="section-pill">Send me a message</span>
+          <span class="section-pill">Open for Opportunities</span>
+        </div>
+
+        <!-- Your direct contact details (KEPT as you requested) -->
+        <div class="contact-box">
+          <p>
+            <strong>Email:</strong>
+            <a href="mailto:iruban522@gmail.com">iruban522@gmail.com</a>
+          </p>
+
+          <p>
+            <strong>LinkedIn:</strong>
+            <a href="https://www.linkedin.com/in/i-ruban-jebakumar-32a47027b" target="_blank">
+              linkedin.com/in/i-ruban-jebakumar-32a47027b
+            </a>
+          </p>
+
+          <a class="btn-primary" href="Ruban_Jeba_Kumar_Resume.pdf" download>
+            📄 Download My Resume
+          </a>
         </div>
 
         <!-- Short description above the form -->
         <p class="contact-intro">
-          If you’d like to discuss data engineering, ETL work, or analytics opportunities, feel free to drop a message below.
-          I’ll get back to you as soon as possible.
+          You can also send me a message directly using the form below. I usually reply within 24 hours.
         </p>
 
-        <!-- Contact form (name, email, phone, message) -->
-        <!-- NOTE: Replace the "action" URL with your real Formspree form URL when you create it -->
+        <!-- Contact form (Name, Email, Phone, Message) -->
+        <!-- IMPORTANT: Replace action URL with your real Formspree URL later -->
         <form class="contact-form" action="https://formspree.io/f/your-form-id-here" method="POST">
           <input type="text" name="name" placeholder="Name *" required>
           <input type="email" name="email" placeholder="Email *" required>
@@ -590,6 +657,7 @@
 
           <button type="submit">Send</button>
         </form>
+
       </div>
     </section>
   </main>
