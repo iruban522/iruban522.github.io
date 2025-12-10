@@ -5,13 +5,13 @@
   <title>Ruban Jeba Kumar | Data & Analytics</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Favicons (optional – add these files if you want sharper tab icon) -->
+  <!-- Optional sharper favicons if you add the files -->
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
   <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
   <link rel="icon" type="image/png" sizes="96x96" href="favicon-96.png">
   <link rel="apple-touch-icon" href="favicon-96.png">
 
-  <!-- Font Awesome icons -->
+  <!-- Font Awesome for contact icons -->
   <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
@@ -57,6 +57,16 @@
       overflow: hidden;
     }
 
+    /* particles canvas sits behind content */
+    #particles-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
     @keyframes gradientShift {
       0% { background-position: 0% 0%; }
       100% { background-position: 100% 100%; }
@@ -66,7 +76,7 @@
       max-width: 1100px;
       margin: 0 auto;
       position: relative;
-      z-index: 2;
+      z-index: 2; /* above particles */
     }
 
     nav {
@@ -147,6 +157,15 @@
       font-weight: 800;
       margin-bottom: 0.9rem;
       text-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+      min-height: 3.2rem; /* space while typing */
+    }
+
+    /* typing caret */
+    #typing-text {
+      border-right: 3px solid rgba(248, 250, 252, 0.8);
+      padding-right: 4px;
+      white-space: nowrap;
+      overflow: hidden;
     }
 
     .hero-subtitle {
@@ -206,48 +225,67 @@
       box-shadow: 0 25px 55px rgba(15, 23, 42, 1);
     }
 
+    /* Glowing IDMC badge with animated bars */
     .data-visual {
       display: flex;
-      align-items: flex-end;
-      gap: 6px;
-      padding: 0.55rem 0.9rem;
+      align-items: center;
+      gap: 8px;
+      padding: 0.7rem 1.1rem;
       border-radius: 999px;
       background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: 0 0 12px rgba(30, 58, 138, 0.45),
+                  0 0 22px rgba(30, 58, 138, 0.25);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
       margin-top: 0.4rem;
     }
 
+    .data-visual:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 0 18px rgba(59, 130, 246, 0.55),
+                  0 0 30px rgba(59, 130, 246, 0.35);
+    }
+
+    .data-visual-label {
+      font-size: 0.75rem;
+      color: #dbeafe;
+      font-weight: 600;
+      text-shadow: 0 0 6px rgba(96, 165, 250, 0.55);
+      transition: color 0.25s ease;
+    }
+
+    .company-name {
+      font-size: 0.70rem;
+      color: #93c5fd;
+      text-shadow: 0 0 6px rgba(96, 165, 250, 0.45);
+      transition: color 0.25s ease;
+    }
+
+    .data-visual:hover .data-visual-label,
+    .data-visual:hover .company-name {
+      color: #fff;
+    }
+
     .data-bar {
-      width: 5px;
+      width: 6px;
+      height: 10px;
       border-radius: 999px;
       background: linear-gradient(to top, #22c55e, #eab308);
       animation: pulseBar 1.7s ease-in-out infinite;
       transform-origin: bottom;
+      box-shadow: 0 0 5px rgba(34,197,94,0.6);
     }
 
     .data-bar:nth-child(1) { animation-delay: 0.0s; }
-    .data-bar:nth-child(2) { animation-delay: 0.15s; }
-    .data-bar:nth-child(3) { animation-delay: 0.3s; }
-    .data-bar:nth-child(7) { animation-delay: 0.45s; }
-    .data-bar:nth-child(8) { animation-delay: 0.6s; }
-    .data-bar:nth-child(9) { animation-delay: 0.75s; }
+    .data-bar:nth-child(2) { animation-delay: 0.2s; }
+    .data-bar:nth-child(3) { animation-delay: 0.4s; }
+    .data-bar:nth-child(7) { animation-delay: 0.1s; }
+    .data-bar:nth-child(8) { animation-delay: 0.3s; }
+    .data-bar:nth-child(9) { animation-delay: 0.5s; }
 
     @keyframes pulseBar {
-      0%, 100% { height: 8px; opacity: 0.5; }
-      50% { height: 18px; opacity: 1; }
-    }
-
-    .data-visual-label {
-      font-size: 0.7rem;
-      color: #cbd5f5;
-      white-space: nowrap;
-      margin: 0 0.45rem;
-    }
-
-    .company-name {
-      font-size: 0.68rem;
-      color: #93c5fd;
+      0%, 100% { height: 10px; opacity: 0.5; }
+      50%      { height: 20px; opacity: 1; }
     }
 
     /* ============= MAIN SECTIONS ============= */
@@ -395,6 +433,19 @@
       color: #e5e7eb;
     }
 
+    /* ============= SCROLL REVEAL ============= */
+
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* ============= FOOTER ============= */
 
     footer {
@@ -453,10 +504,12 @@
 <body>
 
 <header>
+  <!-- particles background -->
+  <canvas id="particles-canvas"></canvas>
+
   <div class="container">
     <nav>
       <div class="logo">
-        <!-- logo.png in repo root -->
         <img src="logo.png" alt="Ruban Jeba Kumar Logo">
       </div>
       <div>
@@ -465,13 +518,16 @@
       </div>
     </nav>
 
-    <div class="hero">
+    <div class="hero reveal-on-scroll">
       <div class="hero-badge">
         <span class="dot"></span>
         Trailblazer of the Month – Nov 2025 · Inflecto Technologies
       </div>
 
-      <h1 class="hero-title">Data &amp; Analytics Professional</h1>
+      <h1 class="hero-title">
+        <span id="typing-text"></span>
+      </h1>
+
       <p class="hero-subtitle">
         Turning raw data into clear insights using SQL, data pipelines, and analytics to help teams make better, faster decisions.
       </p>
@@ -479,7 +535,6 @@
       <div class="hero-profile">
         <img src="profile.jpg" alt="Ruban Jeba Kumar">
 
-        <!-- Animated IDMC Consultant bar -->
         <div class="data-visual">
           <div class="data-bar"></div>
           <div class="data-bar"></div>
@@ -502,7 +557,7 @@
 <main>
   <!-- ABOUT / SKILLS -->
   <section id="about">
-    <div class="section-inner">
+    <div class="section-inner reveal-on-scroll">
       <div class="section-header">
         <h2 class="section-title">Profile &amp; Skills</h2>
         <span class="section-pill">Data Engineering · Analytics</span>
@@ -545,7 +600,7 @@
 
   <!-- CONTACT -->
   <section id="contact">
-    <div class="section-inner">
+    <div class="section-inner reveal-on-scroll">
       <div class="section-header">
         <h2 class="section-title">Let’s Connect</h2>
         <span class="section-pill">Open for Opportunities</span>
@@ -591,7 +646,91 @@
 </footer>
 
 <script>
+  // Footer year
   document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Typing animation
+  const typingTarget = document.getElementById("typing-text");
+  const typingText = "Data & Analytics Professional";
+  let typingIndex = 0;
+
+  function typeLoop() {
+    if (!typingTarget) return;
+    typingTarget.textContent = typingText.slice(0, typingIndex);
+    typingIndex++;
+    if (typingIndex <= typingText.length) {
+      setTimeout(typeLoop, 90);
+    }
+  }
+  typeLoop();
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll(".reveal-on-scroll");
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("reveal-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+  revealEls.forEach(el => observer.observe(el));
+
+  // Simple particles animation on hero
+  const canvas = document.getElementById("particles-canvas");
+  const ctx = canvas.getContext("2d");
+  let particles = [];
+  let width, height;
+
+  function resizeCanvas() {
+    width = canvas.width = canvas.offsetWidth;
+    height = canvas.height = canvas.offsetHeight;
+  }
+
+  function createParticles(count) {
+    particles = [];
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: Math.random() * 2 + 1,
+        alpha: Math.random() * 0.4 + 0.1,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3
+      });
+    }
+  }
+
+  function drawParticles() {
+    ctx.clearRect(0, 0, width, height);
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(129, 140, 248," + p.alpha + ")";
+      ctx.fill();
+
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0) p.x = width;
+      if (p.x > width) p.x = 0;
+      if (p.y < 0) p.y = height;
+      if (p.y > height) p.y = 0;
+    });
+    requestAnimationFrame(drawParticles);
+  }
+
+  function initParticles() {
+    resizeCanvas();
+    createParticles(70);
+    drawParticles();
+  }
+
+  window.addEventListener("resize", resizeCanvas);
+  initParticles();
 </script>
 
 </body>
