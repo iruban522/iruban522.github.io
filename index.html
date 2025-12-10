@@ -30,6 +30,7 @@
       background: linear-gradient(135deg, #0f172a, #1e293b);
       color: white;
       padding: 2.5rem 1.5rem 4rem;
+      text-align: center;
     }
 
     .container {
@@ -47,25 +48,12 @@
     nav .logo {
       font-weight: 700;
       font-size: 1.25rem;
-      letter-spacing: 0.05em;
     }
 
     nav a {
       color: #e5e7eb;
       text-decoration: none;
       margin-left: 1rem;
-      font-size: 0.95rem;
-    }
-
-    nav a:hover {
-      color: white;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: 2fr 1.2fr;
-      gap: 2rem;
-      align-items: center;
     }
 
     .hero-title {
@@ -77,57 +65,7 @@
     .hero-subtitle {
       font-size: 1.1rem;
       color: #e5e7eb;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 0.35rem 0.75rem;
-      border-radius: 999px;
-      background: rgba(248, 250, 252, 0.08);
-      font-size: 0.8rem;
-      margin-bottom: 0.8rem;
-    }
-
-    .hero-badge span {
-      background: var(--accent);
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      margin-right: 0.4rem;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-top: 1.2rem;
-    }
-
-    .btn-primary,
-    .btn-outline {
-      padding: 0.6rem 1.2rem;
-      border-radius: 999px;
-      font-size: 0.9rem;
-      border: 1px solid transparent;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: #e5e7eb;
-      border-color: #475569;
+      margin-bottom: 1.2rem;
     }
 
     section {
@@ -163,11 +101,6 @@
       border-radius: 1rem;
       padding: 1.5rem 1.75rem;
       border: 1px solid #e5e7eb;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 1rem;
-      align-items: center;
     }
 
     footer {
@@ -179,6 +112,7 @@
     }
   </style>
 </head>
+
 <body>
 
 <header>
@@ -195,6 +129,10 @@
     <p class="hero-subtitle">
       Turning raw data into clear insights using SQL and analytics to help teams make better decisions.
     </p>
+
+    <!-- ✅ PROFILE PHOTO -->
+    <img src="profile.jpg" alt="Ruban Jeba Kumar"
+      style="width:140px;height:140px;border-radius:50%;margin-top:20px;border:4px solid white;">
   </div>
 </header>
 
@@ -204,7 +142,7 @@
       <h2>About Me</h2>
       <p>
         I’m <strong>Ruban Jeba Kumar</strong>, a data professional with a strong focus on
-        SQL, data pipelines, and analytics.
+        SQL, data pipelines,ETL and analytics. I enjoy building reliable data systems and performance-optimized queries.
       </p>
     </div>
 
@@ -213,9 +151,11 @@
       <div class="tag-list">
         <span class="tag">SQL</span>
         <span class="tag">PostgreSQL</span>
-        <span class="tag">Amazon Redshift</span>
+        <span class="tag">Amazon Redshift AWS</span>
         <span class="tag">ETL / ELT</span>
+		<span class="tag">Informatica PC / IDMC</span>
         <span class="tag">Data Modeling</span>
+		<span class="tag">Data Warehousing</span>
       </div>
     </div>
   </div>
@@ -225,21 +165,30 @@
   <div class="container">
     <h2>Let’s Connect</h2>
     <div class="contact-box">
-      <div>
-        <p><strong>Email:</strong> <a href="mailto:iruban522@gmail.com">iruban522@gmail.com</a></p>
-        <p><strong>LinkedIn:</strong> 
-          <a href="https://www.linkedin.com/in/i-ruban-jebakumar-32a47027b" target="_blank">
-            linkedin.com/in/i-ruban-jebakumar-32a47027b
-          </a>
-        </p>
-        <p><strong>Mobile:</strong> <a href="tel:+918098294971">+91 80982 94971</a></p>
-      </div>
+
+      <p><strong>Email:</strong>
+        <a href="mailto:iruban522@gmail.com">iruban522@gmail.com</a>
+      </p>
+
+      <p><strong>LinkedIn:</strong>
+        <a href="https://www.linkedin.com/in/i-ruban-jebakumar-32a47027b" target="_blank">
+          linkedin.com/in/i-ruban-jebakumar-32a47027b
+        </a>
+      </p>
+
+      <!-- ✅ RESUME DOWNLOAD BUTTON -->
+      <br>
+      <a href="Ruban_Jeba_Kumar_Resume.pdf" download
+        style="background:#2563eb;color:white;padding:12px 20px;border-radius:30px;text-decoration:none;display:inline-block;margin-top:10px;">
+        📄 Download My Resume
+      </a>
+
     </div>
   </div>
 </section>
 
 <footer>
-  © 2025 Ruban Jeba Kumar
+  © 2025 Ruban Jeba Kumar · Data & Analytics
 </footer>
 
 </body>
