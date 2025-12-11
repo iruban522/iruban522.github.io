@@ -52,13 +52,14 @@
     /* Particles canvas sits behind content */
     #particles-canvas{position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none;}
 
-    .container{max-width:1100px;margin:0 auto;position:relative;z-index:2; display:block;}
+    .container{max-width:1100px;margin:0 auto;position:relative;z-index:2; padding-left:12px; padding-right:12px;}
 
-    /* header layout: logo / nav / time */
-    .header-row{ display:flex; align-items:center; justify-content:space-between; gap:1rem; }
-    nav{ display:flex; gap:1rem; align-items:center; justify-content:center; flex:1; }
-    .logo{ flex:0 0 auto; }
-    .right-slot{ flex:0 0 auto; display:flex; align-items:center; }
+    /* header layout: logo / nav / time
+       - on small screens we pin the right slot absolute top-right so it doesn't wrap */
+    .header-row{ display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:nowrap; position:relative; }
+    .logo{ flex:0 0 auto; margin-right:12px; z-index:3; }
+    nav{ display:flex; gap:1rem; align-items:center; justify-content:center; flex:1; min-width:0; overflow-x:auto; -webkit-overflow-scrolling:touch; z-index:2; }
+    .right-slot{ flex:0 0 auto; margin-left:12px; z-index:3; }
 
     .logo img{
       height:110px; width:auto; object-fit:contain; border-radius:18px; padding:0;
@@ -67,7 +68,7 @@
     }
     .logo img:hover{ transform:scale(1.06); box-shadow:0 18px 55px rgba(0,0,0,0.75); }
 
-    nav a{ color:#e5e7eb; margin-left:1.25rem; font-size:0.95rem; position:relative; transition:color .2s; padding:6px 6px; border-radius:6px;}
+    nav a{ color:#e5e7eb; margin-left:1.25rem; font-size:0.95rem; position:relative; transition:color .2s; padding:6px 6px; border-radius:6px; white-space:nowrap;}
     nav a::after{ content:""; position:absolute; left:50%; transform:translateX(-50%); bottom:-0.25rem; height:2px; width:0; background:var(--primary); border-radius:999px; transition: width .2s;}
     nav a:hover{ color:#fff; } nav a:hover::after{ width:60%; }
 
@@ -75,19 +76,39 @@
     .time-pill{
       background: rgba(15,23,42,0.75);
       border:1px solid rgba(148,163,184,0.45);
-      padding:.38rem .8rem; border-radius:999px; font-size:.92rem; color:#cfe0ff;
-      display:inline-flex; align-items:center; gap:.6rem; white-space:nowrap; min-width:140px;
-      justify-content:center;
+      padding:.45rem .95rem; border-radius:999px; font-size:.92rem; color:#cfe0ff;
+      display:inline-flex; align-items:center; gap:.6rem; white-space:nowrap;
     }
     .time-pill .time-mono{ font-family: monospace; font-weight:600; color:#e6eefc; font-size:0.95rem; }
-    .time-pill .label { font-weight:700; color:#fff; background:transparent; padding:0 .25rem; border-radius:6px; font-size:0.78rem; opacity:0.95; }
+    .time-pill .date-part { color:#d9e7ff; font-size:0.9rem; opacity:0.95; }
+    .time-pill .label { display:none; } /* removed leading IST label per request */
 
-    /* make pill adapt: clip/ellipsis if too long */
-    .time-pill .short, .time-pill .full { display:inline-block; }
-    .time-pill .full { max-width:280px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-    .time-pill .short { display:none; }
+    /* Pin time on the right on narrow screens to prevent wrapping */
+    @media (max-width:520px){
+      /* place right-slot absolute inside header so it doesn't push nav */
+      .right-slot{
+        position:absolute;
+        top:12px;
+        right:12px;
+        transform:none;
+      }
 
-    /* HERO */
+      /* make nav centered with some left space so logo doesn't overlap it */
+      nav{
+        margin-left: 80px;   /* leaves room for logo */
+        margin-right: 100px; /* leaves room for time */
+      }
+
+      .time-pill{ padding:.35rem .6rem; font-size:.92rem; }
+      .time-pill .date-part{ display:none; } /* hide date on very small screens */
+      .logo img{ height:90px; }
+    }
+
+    /* larger screens keep normal layout */
+    @media (min-width:521px){
+      .right-slot{ position:static; }
+    }
+
     .hero{ text-align:center; max-width:720px; margin:0 auto; animation:fadeUp .9s ease-out forwards; opacity:0; transform:translateY(18px); }
     @keyframes fadeUp{ to{ opacity:1; transform:translateY(0); } }
 
@@ -181,33 +202,9 @@
 
     footer{ text-align:center; padding:1.8rem 1.5rem 2.2rem; font-size:.78rem; color:#94a3b8; background:#020617; border-top:1px solid rgba(30,64,175,.6); }
 
-    /* responsive tweaks for mobile portrait – ensure headline fits */
-    @media (max-width:820px){
-      .container{ padding:0 1rem; }
-      .header-row{ flex-direction:row; align-items:center; gap:0.7rem; }
-      nav{ order:2; flex:1; justify-content:center; }
-      .logo{ order:1; }
-      .right-slot{ order:3; }
-    }
-
-    @media (max-width:520px){
-      .logo img{ height:90px; }
-      .hero-title{ font-size: clamp(1.6rem, 6vw, 2.2rem); }
-      .hero-subtitle{ font-size:.95rem; padding-inline: .6rem; }
-      .hero-profile img{ width:160px; }
-      .contact-box{ padding:1rem; }
-      .btn-primary{ min-width:140px; white-space:nowrap; }
-
-      /* On small screens show the short time only */
-      .time-pill .full { display:none; }
-      .time-pill .short { display:inline-block; }
-      .time-pill{ min-width:110px; padding:.28rem .6rem; font-size:0.9rem; }
-    }
-
     @media (max-width:380px){
       .hero-title{ font-size:1.7rem; }
       header{ padding-bottom:3.5rem; }
-      .time-pill{ font-size:0.88rem; padding:.24rem .45rem; }
     }
   </style>
 </head>
@@ -230,13 +227,11 @@
       </nav>
 
       <div class="right-slot">
-        <!-- live IST date/time pill:
-             - .full shows date+time (desktop)
-             - .short shows compact time only (mobile)
-        -->
+        <!-- live IST date/time pill: date + time split for responsive hide -->
         <div class="time-pill" aria-hidden="false" title="Current India time (IST)">
-          <span class="full" id="clockFull">--</span>
-          <span class="short" id="clockShort" style="display:none">--</span>
+          <span class="date-part" id="clockDate">--</span>
+          <span class="time-mono" id="clockTime">--</span>
+          <span style="color:#93c5fd;font-size:.78rem;margin-left:.35rem;">IST</span>
         </div>
       </div>
     </div>
@@ -324,6 +319,7 @@
 <footer>© <span id="year"></span> Ruban Jeba Kumar · Data &amp; Analytics</footer>
 
 <script>
+  // footer year
   document.getElementById('year').textContent = new Date().getFullYear();
 
   // scroll reveal
@@ -362,35 +358,20 @@
   window.addEventListener('resize', resizeCanvas);
   initParticles();
 
-  // ======= IST clock with responsive behavior =======
+  // ======= IST clock (date + time split) =======
   function updateISTClock(){
     const now = new Date();
     const optsDate = { day: '2-digit', month:'short', year:'numeric', timeZone:'Asia/Kolkata' };
     const optsTime = { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false, timeZone:'Asia/Kolkata' };
-
     const datePart = now.toLocaleDateString('en-GB', optsDate); // "11 Dec 2025"
-    const timePart = now.toLocaleTimeString('en-GB', optsTime); // "19:30:53"
-
-    // Choose full or compact display based on viewport width
-    const wide = window.innerWidth >= 520;
-    const fullEl = document.getElementById('clockFull');
-    const shortEl = document.getElementById('clockShort');
-
-    if (wide) {
-      // e.g. "11 Dec 2025 · 19:30:53 IST"
-      fullEl.textContent = datePart + ' · ' + timePart + ' IST';
-      fullEl.style.display = 'inline';
-      shortEl.style.display = 'none';
-    } else {
-      // compact: show time only e.g. "19:30:53 IST"
-      shortEl.textContent = timePart + ' IST';
-      shortEl.style.display = 'inline';
-      fullEl.style.display = 'none';
-    }
+    const timePart = now.toLocaleTimeString('en-GB', optsTime); // "17:17:14"
+    const dEl = document.getElementById('clockDate');
+    const tEl = document.getElementById('clockTime');
+    if(dEl) dEl.textContent = datePart;
+    if(tEl) tEl.textContent = timePart;
   }
   updateISTClock();
   setInterval(updateISTClock, 1000);
-  window.addEventListener('resize', updateISTClock);
 </script>
 
 </body>
