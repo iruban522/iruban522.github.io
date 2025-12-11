@@ -58,7 +58,7 @@
     .header-row{ display:flex; align-items:center; justify-content:space-between; gap:1rem; }
     nav{ display:flex; gap:1rem; align-items:center; justify-content:center; flex:1; }
     .logo{ flex:0 0 auto; }
-    .right-slot{ flex:0 0 auto; }
+    .right-slot{ flex:0 0 auto; display:flex; align-items:center; }
 
     .logo img{
       height:110px; width:auto; object-fit:contain; border-radius:18px; padding:0;
@@ -75,12 +75,19 @@
     .time-pill{
       background: rgba(15,23,42,0.75);
       border:1px solid rgba(148,163,184,0.45);
-      padding:.45rem .95rem; border-radius:999px; font-size:.92rem; color:#cfe0ff;
-      display:inline-flex; align-items:center; gap:.6rem; white-space:nowrap;
+      padding:.38rem .8rem; border-radius:999px; font-size:.92rem; color:#cfe0ff;
+      display:inline-flex; align-items:center; gap:.6rem; white-space:nowrap; min-width:140px;
+      justify-content:center;
     }
     .time-pill .time-mono{ font-family: monospace; font-weight:600; color:#e6eefc; font-size:0.95rem; }
     .time-pill .label { font-weight:700; color:#fff; background:transparent; padding:0 .25rem; border-radius:6px; font-size:0.78rem; opacity:0.95; }
 
+    /* make pill adapt: clip/ellipsis if too long */
+    .time-pill .short, .time-pill .full { display:inline-block; }
+    .time-pill .full { max-width:280px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .time-pill .short { display:none; }
+
+    /* HERO */
     .hero{ text-align:center; max-width:720px; margin:0 auto; animation:fadeUp .9s ease-out forwards; opacity:0; transform:translateY(18px); }
     @keyframes fadeUp{ to{ opacity:1; transform:translateY(0); } }
 
@@ -190,12 +197,17 @@
       .hero-profile img{ width:160px; }
       .contact-box{ padding:1rem; }
       .btn-primary{ min-width:140px; white-space:nowrap; }
+
+      /* On small screens show the short time only */
+      .time-pill .full { display:none; }
+      .time-pill .short { display:inline-block; }
+      .time-pill{ min-width:110px; padding:.28rem .6rem; font-size:0.9rem; }
     }
 
     @media (max-width:380px){
       .hero-title{ font-size:1.7rem; }
       header{ padding-bottom:3.5rem; }
-      .time-pill{ font-size:0.9rem; padding:.35rem .6rem; }
+      .time-pill{ font-size:0.88rem; padding:.24rem .45rem; }
     }
   </style>
 </head>
@@ -218,9 +230,13 @@
       </nav>
 
       <div class="right-slot">
-        <!-- live IST date/time pill -->
+        <!-- live IST date/time pill:
+             - .full shows date+time (desktop)
+             - .short shows compact time only (mobile)
+        -->
         <div class="time-pill" aria-hidden="false" title="Current India time (IST)">
-          <div class="time-mono" id="clockText">--</div>
+          <span class="full" id="clockFull">--</span>
+          <span class="short" id="clockShort" style="display:none">--</span>
         </div>
       </div>
     </div>
@@ -308,7 +324,6 @@
 <footer>© <span id="year"></span> Ruban Jeba Kumar · Data &amp; Analytics</footer>
 
 <script>
-  // footer year
   document.getElementById('year').textContent = new Date().getFullYear();
 
   // scroll reveal
@@ -347,17 +362,35 @@
   window.addEventListener('resize', resizeCanvas);
   initParticles();
 
-  // ======= IST clock =======
+  // ======= IST clock with responsive behavior =======
   function updateISTClock(){
     const now = new Date();
     const optsDate = { day: '2-digit', month:'short', year:'numeric', timeZone:'Asia/Kolkata' };
     const optsTime = { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false, timeZone:'Asia/Kolkata' };
-    const datePart = now.toLocaleDateString('en-GB', optsDate); // e.g., "11 Dec 2025"
-    const timePart = now.toLocaleTimeString('en-GB', optsTime); // e.g., "17:17:14"
-    document.getElementById('clockText').textContent = datePart + ' · ' + timePart + ' IST';
+
+    const datePart = now.toLocaleDateString('en-GB', optsDate); // "11 Dec 2025"
+    const timePart = now.toLocaleTimeString('en-GB', optsTime); // "19:30:53"
+
+    // Choose full or compact display based on viewport width
+    const wide = window.innerWidth >= 520;
+    const fullEl = document.getElementById('clockFull');
+    const shortEl = document.getElementById('clockShort');
+
+    if (wide) {
+      // e.g. "11 Dec 2025 · 19:30:53 IST"
+      fullEl.textContent = datePart + ' · ' + timePart + ' IST';
+      fullEl.style.display = 'inline';
+      shortEl.style.display = 'none';
+    } else {
+      // compact: show time only e.g. "19:30:53 IST"
+      shortEl.textContent = timePart + ' IST';
+      shortEl.style.display = 'inline';
+      fullEl.style.display = 'none';
+    }
   }
   updateISTClock();
   setInterval(updateISTClock, 1000);
+  window.addEventListener('resize', updateISTClock);
 </script>
 
 </body>
