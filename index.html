@@ -1,502 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <title>Ruban Jeba Kumar | Data & Analytics</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Optional sharper favicons if you add the files -->
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
-  <link rel="icon" type="image/png" sizes="96x96" href="favicon-96.png">
-  <link rel="apple-touch-icon" href="favicon-96.png">
+  <!-- favicon (ensure favicon.png exists in repo root) -->
+  <link rel="icon" type="image/png" href="favicon.png?v=3">
 
-  <!-- Font Awesome for contact icons -->
+  <!-- Font Awesome for icons -->
   <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <style>
-    :root {
-      --primary: #2563eb;
-      --dark: #020617;
-      --dark-alt: #0f172a;
-      --light: #f9fafb;
-      --accent: #f97316;
-      --text: #0f172a;
-      --muted: #6b7280;
+    :root{
+      --primary:#2563eb;
+      --dark:#020617;
+      --muted:#6b7280;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-    }
+    *{box-sizing: border-box; margin:0; padding:0; font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
 
-    body {
-      background: #020617;
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    a {
-      text-decoration: none;
-    }
-
-    /* ============= HEADER / HERO ============= */
-
-    header {
+    body{
+      background:#020617;
       color: white;
-      padding: 1.75rem 1.5rem 4.5rem;
-      background: radial-gradient(circle at 0% 0%, #1d4ed8,
-                      #020617 45%, #0f172a 75%, #020617 100%);
+      line-height:1.6;
+    }
+
+    a{ text-decoration:none; color:inherit; }
+
+    /* ---------- Header & hero ---------- */
+    header{
+      color:white;
+      padding:1.75rem 1.5rem 4.5rem;
+      background: radial-gradient(circle at 0% 0%, #1d4ed8, #020617 45%, #0f172a 75%, #020617 100%);
       background-size: 200% 200%;
       animation: gradientShift 16s ease-in-out infinite alternate;
       position: relative;
       overflow: hidden;
     }
+    @keyframes gradientShift{0%{background-position:0% 0%}100%{background-position:100% 100%}}
 
-    /* particles canvas sits behind content */
-    #particles-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      pointer-events: none;
+    /* Particles canvas sits behind content */
+    #particles-canvas{position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none;}
+
+    .container{max-width:1100px;margin:0 auto;position:relative;z-index:2;}
+
+    nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:2.5rem;}
+    .logo img{
+      height:110px; width:auto; object-fit:contain; border-radius:18px; padding:0;
+      background:transparent; box-shadow:0 10px 35px rgba(0,0,0,0.55);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .logo img:hover{ transform:scale(1.06); box-shadow:0 18px 55px rgba(0,0,0,0.75); }
+
+    nav a{ color:#e5e7eb; margin-left:1.25rem; font-size:0.95rem; position:relative; transition:color .2s;}
+    nav a::after{ content:""; position:absolute; left:0; bottom:-0.25rem; height:2px; width:0; background:var(--primary); border-radius:999px; transition: width .2s;}
+    nav a:hover{ color:#fff; } nav a:hover::after{ width:100%; }
+
+    .hero{ text-align:center; max-width:720px; margin:0 auto; animation:fadeUp .9s ease-out forwards; opacity:0; transform:translateY(18px); }
+    @keyframes fadeUp{ to{ opacity:1; transform:translateY(0); } }
+
+    /* HEADLINE: responsive, wraps on small screens */
+    .hero-title{
+      font-weight:800;
+      margin-bottom:0.9rem;
+      text-shadow:0 18px 40px rgba(0,0,0,0.45);
+      line-height:1.02;
+      font-size: clamp(1.9rem, 5vw, 3.1rem); /* responsive */
+      white-space: normal;      /* allow wrapping */
+      word-break: break-word;   /* break on small screens */
     }
 
-    @keyframes gradientShift {
-      0% { background-position: 0% 0%; }
-      100% { background-position: 100% 100%; }
+    .hero-subtitle{
+      font-size:1.02rem; color:#e5e7eb; margin-bottom:1.8rem; max-width:620px; margin-left:auto; margin-right:auto;
     }
 
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 2; /* above particles */
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2.5rem;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-    }
-
-    /* BIG logo in header */
-    .logo img {
-      height: 150px;
-      width: auto;
-      object-fit: contain;
-      border-radius: 18px;
-      padding: 0;
-      background: transparent;
-      box-shadow: 0 10px 35px rgba(0,0,0,0.55);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .logo img:hover {
-      transform: scale(1.06);
-      box-shadow: 0 18px 55px rgba(0,0,0,0.75);
-    }
-
-    nav a {
-      color: #e5e7eb;
-      margin-left: 1.25rem;
-      font-size: 0.95rem;
-      position: relative;
-      transition: color 0.2s ease;
-    }
-
-    nav a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -0.25rem;
-      height: 2px;
-      width: 0;
-      background: var(--accent);
-      border-radius: 999px;
-      transition: width 0.2s ease;
-    }
-
-    nav a:hover {
-      color: #ffffff;
-    }
-
-    nav a:hover::after {
-      width: 100%;
-    }
-
-    .hero {
-      text-align: center;
-      max-width: 720px;
-      margin: 0 auto;
-      animation: fadeUp 0.9s ease-out forwards;
-      opacity: 0;
-      transform: translateY(18px);
-    }
-
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .hero-title {
-      font-size: clamp(2.4rem, 4vw, 3.1rem);
-      font-weight: 800;
-      margin-bottom: 0.9rem;
-      text-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
-      min-height: 3.2rem; /* space while typing */
-    }
-
-    /* typing caret */
-    #typing-text {
-      border-right: 3px solid rgba(248, 250, 252, 0.8);
-      padding-right: 4px;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-
-    .hero-subtitle {
-      font-size: 1.05rem;
-      color: #e5e7eb;
-      margin-bottom: 1.8rem;
-      max-width: 620px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.35rem 0.85rem;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.75);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      font-size: 0.78rem;
-      margin-bottom: 1.25rem;
+    .hero-badge{
+      display:inline-flex; align-items:center; gap:.45rem; padding:.35rem .85rem; border-radius:999px;
+      background: rgba(15,23,42,0.75); border:1px solid rgba(148,163,184,0.6); font-size:.78rem; margin-bottom:1.25rem;
       backdrop-filter: blur(8px);
     }
+    .hero-badge .dot{ width:8px;height:8px;border-radius:999px;background:#f97316; box-shadow:0 0 10px rgba(249,115,22,.8); }
 
-    .hero-badge span.dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 10px rgba(249, 115, 22, 0.8);
+    /* ---------- Profile & IDMC badge ---------- */
+    .hero-profile{ margin-top:1.4rem; display:flex; flex-direction:column; align-items:center; gap:.9rem; }
+    .hero-profile img{
+      width:200px; max-width:45vw; height:auto; border-radius:16px; border:4px solid #f9fafb;
+      box-shadow:0 18px 40px rgba(15,23,42,0.9); background:white; object-fit:cover; transition:transform .25s,box-shadow .25s;
     }
+    .hero-profile img:hover{ transform:translateY(-4px) scale(1.02); box-shadow:0 25px 55px rgba(15,23,42,1); }
 
-    /* ============= PROFILE & BADGE ============= */
-
-    .hero-profile {
-      margin-top: 1.4rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.9rem;
+    .data-visual{
+      display:flex; align-items:center; gap:8px; padding:.7rem 1.1rem; border-radius:999px;
+      background: rgba(15,23,42,0.85); border:1px solid rgba(148,163,184,0.35);
+      box-shadow: 0 0 12px rgba(30,58,138,0.45), 0 0 22px rgba(30,58,138,0.25);
+      transition: transform .25s ease, box-shadow .25s ease; margin-top:.4rem;
     }
+    .data-visual:hover{ transform:translateY(-3px) scale(1.03); box-shadow:0 0 18px rgba(59,130,246,0.55), 0 0 30px rgba(59,130,246,0.35); }
 
-    .hero-profile img {
-      width: 200px;
-      max-width: 45vw;
-      height: auto;
-      border-radius: 16px;
-      border: 4px solid #f9fafb;
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
-      background: white;
-      object-fit: cover;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
+    .data-visual-label{ font-size:.75rem; color:#dbeafe; font-weight:600; text-shadow:0 0 6px rgba(96,165,250,0.55);}
+    .company-name{ font-size:.70rem; color:#93c5fd; text-shadow:0 0 6px rgba(96,165,250,0.45); }
 
-    .hero-profile img:hover {
-      transform: translateY(-4px) scale(1.02);
-      box-shadow: 0 25px 55px rgba(15, 23, 42, 1);
-    }
-
-    /* Glowing IDMC badge with animated bars */
-    .data-visual {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 0.7rem 1.1rem;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      box-shadow: 0 0 12px rgba(30, 58, 138, 0.45),
-                  0 0 22px rgba(30, 58, 138, 0.25);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-      margin-top: 0.4rem;
-    }
-
-    .data-visual:hover {
-      transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 0 18px rgba(59, 130, 246, 0.55),
-                  0 0 30px rgba(59, 130, 246, 0.35);
-    }
-
-    .data-visual-label {
-      font-size: 0.75rem;
-      color: #dbeafe;
-      font-weight: 600;
-      text-shadow: 0 0 6px rgba(96, 165, 250, 0.55);
-      transition: color 0.25s ease;
-    }
-
-    .company-name {
-      font-size: 0.70rem;
-      color: #93c5fd;
-      text-shadow: 0 0 6px rgba(96, 165, 250, 0.45);
-      transition: color 0.25s ease;
-    }
-
-    .data-visual:hover .data-visual-label,
-    .data-visual:hover .company-name {
-      color: #fff;
-    }
-
-    .data-bar {
-      width: 6px;
-      height: 10px;
-      border-radius: 999px;
+    .data-bar{
+      width:6px; height:10px; border-radius:999px;
       background: linear-gradient(to top, #22c55e, #eab308);
-      animation: pulseBar 1.7s ease-in-out infinite;
-      transform-origin: bottom;
-      box-shadow: 0 0 5px rgba(34,197,94,0.6);
+      animation: pulseBar 1.7s ease-in-out infinite; transform-origin:bottom; box-shadow:0 0 5px rgba(34,197,94,0.6);
+    }
+    .data-bar:nth-child(1){animation-delay:0.0s}
+    .data-bar:nth-child(2){animation-delay:0.2s}
+    .data-bar:nth-child(3){animation-delay:0.4s}
+    .data-bar:nth-child(7){animation-delay:0.1s}
+    .data-bar:nth-child(8){animation-delay:0.3s}
+    .data-bar:nth-child(9){animation-delay:0.5s}
+    @keyframes pulseBar{0%,100%{height:10px;opacity:0.5}50%{height:20px;opacity:1}}
+
+    /* ---------- Main sections ---------- */
+    main{ background: radial-gradient(circle at top, #0f172a 0, #020617 40%, #020617 100%); }
+    section{ padding:3.2rem 1.5rem; }
+    .section-inner{ max-width:1100px; margin:0 auto; background:rgba(15,23,42,0.92); border-radius:22px; padding:2.2rem 2rem;
+                    border:1px solid rgba(148,163,184,0.5); box-shadow:0 18px 45px rgba(15,23,42,0.7); color:#e5e7eb; }
+    .section-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:1.75rem; gap:1rem; }
+    .section-title{ font-size:1.45rem; font-weight:700; }
+    .section-pill{ font-size:.75rem; padding:.25rem .65rem; border-radius:999px; border:1px solid rgba(148,163,184,.6); color:#cbd5f5; }
+
+    .grid-2{ display:grid; grid-template-columns: minmax(0,1.3fr) minmax(0,1fr); gap:2.2rem; }
+    .section-text p{ color:#e5e7eb; font-size:.98rem; }
+    .section-text p + p{ margin-top:.7rem; }
+
+    /* skill tags */
+    .tag-list{ display:flex; flex-wrap:wrap; gap:.6rem; }
+    .tag{ font-size:.82rem; padding:.35rem .8rem; border-radius:999px; background:rgba(15,23,42,0.9);
+          border:1px solid rgba(148,163,184,0.8); color:#e5e7eb; box-shadow:0 8px 18px rgba(15,23,42,0.8);
+          transition:transform .18s, box-shadow .18s, border-color .18s, background .18s; cursor:default; }
+    .tag:hover{ transform:translateY(-2px); box-shadow:0 12px 24px rgba(15,23,42,1); border-color:var(--primary); background:rgba(15,23,42,1); }
+
+    /* contact */
+    .contact-box{ background:rgba(15,23,42,0.96); border-radius:18px; padding:1.6rem 1.8rem; border:1px solid rgba(148,163,184,0.6); margin-bottom:1.2rem; }
+    .contact-box p{ font-size:.98rem; margin-bottom:.5rem; }
+    .contact-box i{ margin-right:.45rem; color:#60a5fa; }
+    .contact-box a{ color:#bfdbfe; } .contact-box a:hover{text-decoration:underline;}
+    .btn-primary{ display:inline-flex; align-items:center; justify-content:center; gap:.35rem; margin-top:1rem; margin-right:.7rem;
+                 padding:.8rem 1.4rem; border-radius:999px; background:linear-gradient(to right,#2563eb,#4f46e5); color:white; border:none; cursor:pointer;
+                 box-shadow:0 16px 35px rgba(37,99,235,.55); transition:transform .18s, box-shadow .18s, filter .18s; }
+    .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 22px 40px rgba(37,99,235,.7); filter:brightness(1.05); }
+
+    .contact-intro{ font-size:.95rem; margin-top:.5rem; color:#e5e7eb; }
+
+    /* scroll reveal helper */
+    .reveal-on-scroll{ opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease; }
+    .reveal-visible{ opacity:1; transform:translateY(0); }
+
+    footer{ text-align:center; padding:1.8rem 1.5rem 2.2rem; font-size:.78rem; color:#94a3b8; background:#020617; border-top:1px solid rgba(30,64,175,.6); }
+
+    /* responsive tweaks for mobile portrait – ensure headline fits */
+    @media (max-width:520px){
+      .logo img{ height:90px; }
+      .hero-title{ font-size: clamp(1.6rem, 6vw, 2.2rem); } /* smaller on narrow screens */
+      .hero-subtitle{ font-size:.95rem; padding-inline: .6rem; }
+      .hero-profile img{ width:160px; }
     }
 
-    .data-bar:nth-child(1) { animation-delay: 0.0s; }
-    .data-bar:nth-child(2) { animation-delay: 0.2s; }
-    .data-bar:nth-child(3) { animation-delay: 0.4s; }
-    .data-bar:nth-child(7) { animation-delay: 0.1s; }
-    .data-bar:nth-child(8) { animation-delay: 0.3s; }
-    .data-bar:nth-child(9) { animation-delay: 0.5s; }
-
-    @keyframes pulseBar {
-      0%, 100% { height: 10px; opacity: 0.5; }
-      50%      { height: 20px; opacity: 1; }
-    }
-
-    /* ============= MAIN SECTIONS ============= */
-
-    main {
-      background: radial-gradient(circle at top, #0f172a 0,
-                 #020617 40%, #020617 100%);
-    }
-
-    section {
-      padding: 3.2rem 1.5rem;
-    }
-
-    .section-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      background: rgba(15, 23, 42, 0.92);
-      border-radius: 22px;
-      padding: 2.2rem 2rem;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.7);
-      color: #e5e7eb;
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.75rem;
-      gap: 1rem;
-    }
-
-    .section-title {
-      font-size: 1.45rem;
-      font-weight: 700;
-    }
-
-    .section-pill {
-      font-size: 0.75rem;
-      padding: 0.25rem 0.65rem;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      color: #cbd5f5;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-      gap: 2.2rem;
-    }
-
-    .section-text p {
-      color: #e5e7eb;
-      font-size: 0.98rem;
-    }
-
-    .section-text p + p {
-      margin-top: 0.7rem;
-    }
-
-    /* ============= SKILL TAGS ============= */
-
-    .tag-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-    }
-
-    .tag {
-      font-size: 0.82rem;
-      padding: 0.35rem 0.8rem;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.8);
-      color: #e5e7eb;
-      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.8);
-      transition: transform 0.18s ease, box-shadow 0.18s ease,
-                  border-color 0.18s ease, background 0.18s ease;
-      cursor: default;
-    }
-
-    .tag:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 24px rgba(15, 23, 42, 1);
-      border-color: var(--accent);
-      background: rgba(15, 23, 42, 1);
-    }
-
-    /* ============= CONTACT SECTION ============= */
-
-    .contact-box {
-      background: rgba(15, 23, 42, 0.96);
-      border-radius: 18px;
-      padding: 1.6rem 1.8rem;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      margin-bottom: 1.2rem;
-    }
-
-    .contact-box p {
-      font-size: 0.98rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .contact-box i {
-      margin-right: 0.45rem;
-      color: #60a5fa;
-    }
-
-    .contact-box a {
-      color: #bfdbfe;
-    }
-
-    .contact-box a:hover {
-      text-decoration: underline;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.35rem;
-      margin-top: 1rem;
-      margin-right: 0.7rem;
-      padding: 0.8rem 1.4rem;
-      border-radius: 999px;
-      background: linear-gradient(to right, #2563eb, #4f46e5);
-      color: white;
-      font-size: 0.92rem;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 16px 35px rgba(37, 99, 235, 0.55);
-      transition: transform 0.18s ease, box-shadow 0.18s ease,
-                  filter 0.18s ease;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 22px 40px rgba(37, 99, 235, 0.7);
-      filter: brightness(1.05);
-    }
-
-    .contact-intro {
-      font-size: 0.95rem;
-      margin-top: 0.5rem;
-      color: #e5e7eb;
-    }
-
-    /* ============= SCROLL REVEAL ============= */
-
-    .reveal-on-scroll {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .reveal-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ============= FOOTER ============= */
-
-    footer {
-      text-align: center;
-      padding: 1.8rem 1.5rem 2.2rem;
-      font-size: 0.78rem;
-      color: #94a3b8;
-      background: #020617;
-      border-top: 1px solid rgba(30, 64, 175, 0.6);
-    }
-
-    /* ============= RESPONSIVE ============= */
-
-    @media (max-width: 820px) {
-      nav {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.8rem;
-      }
-
-      .section-inner {
-        padding: 1.7rem 1.4rem;
-      }
-
-      .grid-2 {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .section-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .logo img {
-        height: 80px;
-      }
-    }
-
-    @media (max-width: 520px) {
-      header {
-        padding-inline: 1.1rem;
-      }
-      .hero-title {
-        font-size: 2.1rem;
-      }
-      .hero-subtitle {
-        font-size: 0.96rem;
-      }
-      .hero-profile img {
-        width: 160px;
-      }
+    @media (max-width:380px){
+      .hero-title{ font-size:1.7rem; }
+      header{ padding-bottom:3.5rem; }
     }
   </style>
 </head>
@@ -504,14 +171,11 @@
 <body>
 
 <header>
-  <!-- particles background -->
   <canvas id="particles-canvas"></canvas>
 
   <div class="container">
     <nav>
-      <div class="logo">
-        <img src="logo.png" alt="Ruban Jeba Kumar Logo">
-      </div>
+      <div class="logo"><img src="logo.png" alt="Ruban Jeba Kumar Logo"></div>
       <div>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
@@ -519,18 +183,12 @@
     </nav>
 
     <div class="hero reveal-on-scroll">
-      <div class="hero-badge">
-        <span class="dot"></span>
-        Trailblazer of the Month – Nov 2025 · Inflecto Technologies
-      </div>
+      <div class="hero-badge"><span class="dot"></span>Trailblazer of the Month – Nov 2025 · Inflecto Technologies</div>
 
-      <h1 class="hero-title">
-        <span id="typing-text"></span>
-      </h1>
+      <!-- static headline (typing animation removed) -->
+      <h1 class="hero-title">Data &amp; Analytics Professional</h1>
 
-      <p class="hero-subtitle">
-        Turning raw data into clear insights using SQL, data pipelines, and analytics to help teams make better, faster decisions.
-      </p>
+      <p class="hero-subtitle">Turning raw data into clear insights using SQL, data pipelines, and analytics to help teams make better, faster decisions.</p>
 
       <div class="hero-profile">
         <img src="profile.jpg" alt="Ruban Jeba Kumar">
@@ -555,7 +213,6 @@
 </header>
 
 <main>
-  <!-- ABOUT / SKILLS -->
   <section id="about">
     <div class="section-inner reveal-on-scroll">
       <div class="section-header">
@@ -565,40 +222,28 @@
 
       <div class="grid-2">
         <div class="section-text">
-          <p>
-            I’m <strong>Ruban Jeba Kumar</strong>, an experienced ETL Developer
-            with 4+ years of hands-on experience in data engineering and
-            analytics. I specialize in SQL, data pipelines, ETL processes,
-            and building reliable, scalable data systems. I enjoy developing
-            performance-optimized queries and well-structured data models
-            that make reporting easier and more impactful.
-          </p>
-          <p>
-            I care about clarity, performance, and reliability in everything
-            I build—from stored procedures and delta frameworks to job
-            monitoring and production-ready datasets.
-          </p>
+          <p>I’m <strong>Ruban Jeba Kumar</strong>, an experienced ETL Developer with 4+ years of hands-on experience in data engineering and analytics. I specialize in SQL, data pipelines, ETL processes, and building reliable, scalable data systems. I enjoy developing performance-optimized queries and clean data models.</p>
+          <p>I care about clarity, performance, and reliability in everything I build—from stored procedures and delta frameworks to job monitoring and production-ready datasets.</p>
         </div>
 
         <div>
-          <h3 style="font-size:1.05rem;margin-bottom:0.9rem;">Core Skills</h3>
+          <h3 style="font-size:1.05rem;margin-bottom:.9rem;">Core Skills</h3>
           <div class="tag-list">
             <span class="tag">SQL</span>
             <span class="tag">PostgreSQL</span>
-            <span class="tag">Amazon Redshift AWS</span>
+            <span class="tag">Amazon Redshift</span>
             <span class="tag">ETL / ELT</span>
             <span class="tag">Data Modeling</span>
             <span class="tag">Data Warehousing</span>
-            <span class="tag">Informatica PC / IDMC</span>
+            <span class="tag">Informatica IDMC</span>
             <span class="tag">Tableau</span>
-            <span class="tag">Salesforce / CRM</span>
+            <span class="tag">Salesforce</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
   <section id="contact">
     <div class="section-inner reveal-on-scroll">
       <div class="section-header">
@@ -607,132 +252,60 @@
       </div>
 
       <div class="contact-box">
-        <p>
-          <i class="fa-solid fa-envelope"></i>
-          <strong>Email:</strong>
-          <a href="mailto:iruban522@gmail.com">iruban522@gmail.com</a>
-        </p>
+        <p><i class="fa-solid fa-envelope"></i><strong>Email:</strong> <a href="mailto:iruban522@gmail.com">iruban522@gmail.com</a></p>
+        <p><i class="fa-brands fa-linkedin"></i><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/i-ruban-jebakumar-32a47027b" target="_blank">linkedin.com/in/i-ruban-jebakumar-32a47027b</a></p>
 
-        <p>
-          <i class="fa-brands fa-linkedin"></i>
-          <strong>LinkedIn:</strong>
-          <a href="https://www.linkedin.com/in/i-ruban-jebakumar-32a47027b"
-             target="_blank">
-            linkedin.com/in/i-ruban-jebakumar-32a47027b
-          </a>
-        </p>
-
-        <button class="btn-primary"
-                onclick="window.location.href='Ruban_Jeba_Kumar_Resume.pdf'">
-          📄 Download My Resume
-        </button>
-
-        <button class="btn-primary"
-                onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSdRHW8ak7fbTjV_SZ9fofSies3WOwacZoBs3l5f_n8YNfzSXw/viewform','_blank')">
-          ✉️ Send Message via Google Form
-        </button>
+        <button class="btn-primary" onclick="window.location.href='Ruban_Jeba_Kumar_Resume.pdf'">📄 Download My Resume</button>
+        <button class="btn-primary" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSdRHW8ak7fbTjV_SZ9fofSies3WOwacZoBs3l5f_n8YNfzSXw/viewform','_blank')">✉️ Send Message via Google Form</button>
       </div>
 
-      <p class="contact-intro">
-        Feel free to reach out for data engineering, ETL, or analytics
-        opportunities. I’m always happy to discuss interesting data problems.
-      </p>
+      <p class="contact-intro">Feel free to reach out for data engineering, ETL, or analytics opportunities. I’m always happy to discuss interesting data problems.</p>
     </div>
   </section>
 </main>
 
-<footer>
-  © <span id="year"></span> Ruban Jeba Kumar · Data &amp; Analytics
-</footer>
+<footer>© <span id="year"></span> Ruban Jeba Kumar · Data &amp; Analytics</footer>
 
 <script>
-  // Footer year
-  document.getElementById("year").textContent = new Date().getFullYear();
+  // footer year
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Typing animation
-  const typingTarget = document.getElementById("typing-text");
-  const typingText = "Data & Analytics Professional";
-  let typingIndex = 0;
-
-  function typeLoop() {
-    if (!typingTarget) return;
-    typingTarget.textContent = typingText.slice(0, typingIndex);
-    typingIndex++;
-    if (typingIndex <= typingText.length) {
-      setTimeout(typeLoop, 90);
-    }
-  }
-  typeLoop();
-
-  // Scroll reveal
-  const revealEls = document.querySelectorAll(".reveal-on-scroll");
-  const observer = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("reveal-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.15 }
-  );
-  revealEls.forEach(el => observer.observe(el));
-
-  // Simple particles animation on hero
-  const canvas = document.getElementById("particles-canvas");
-  const ctx = canvas.getContext("2d");
-  let particles = [];
-  let width, height;
-
-  function resizeCanvas() {
-    width = canvas.width = canvas.offsetWidth;
-    height = canvas.height = canvas.offsetHeight;
-  }
-
-  function createParticles(count) {
-    particles = [];
-    for (let i = 0; i < count; i++) {
-      particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        r: Math.random() * 2 + 1,
-        alpha: Math.random() * 0.4 + 0.1,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3
-      });
-    }
-  }
-
-  function drawParticles() {
-    ctx.clearRect(0, 0, width, height);
-    particles.forEach(p => {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(129, 140, 248," + p.alpha + ")";
-      ctx.fill();
-
-      p.x += p.vx;
-      p.y += p.vy;
-
-      if (p.x < 0) p.x = width;
-      if (p.x > width) p.x = 0;
-      if (p.y < 0) p.y = height;
-      if (p.y > height) p.y = 0;
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal-on-scroll');
+  const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){ entry.target.classList.add('reveal-visible'); observer.unobserve(entry.target); }
     });
-    requestAnimationFrame(drawParticles);
-  }
+  },{threshold:0.15});
+  revealEls.forEach(el=>observer.observe(el));
 
-  function initParticles() {
-    resizeCanvas();
-    createParticles(70);
-    drawParticles();
+  // particles (simple)
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [], W, H;
+  function resizeCanvas(){ W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; }
+  function createParticles(n){
+    particles = [];
+    for(let i=0;i<n;i++){
+      particles.push({ x:Math.random()*W, y:Math.random()*H, r:Math.random()*2+1, a:Math.random()*0.4+0.08, vx:(Math.random()-0.5)*0.3, vy:(Math.random()-0.5)*0.3 });
+    }
   }
-
-  window.addEventListener("resize", resizeCanvas);
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    particles.forEach(p=>{
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle = 'rgba(129,140,248,'+p.a+')';
+      ctx.fill();
+      p.x += p.vx; p.y += p.vy;
+      if(p.x<0) p.x=W; if(p.x>W) p.x=0; if(p.y<0) p.y=H; if(p.y>H) p.y=0;
+    });
+    requestAnimationFrame(draw);
+  }
+  function initParticles(){ resizeCanvas(); createParticles(60); draw(); }
+  window.addEventListener('resize', resizeCanvas);
   initParticles();
 </script>
 
 </body>
 </html>
-
