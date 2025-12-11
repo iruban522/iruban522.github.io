@@ -5,416 +5,402 @@
   <title>Ruban Jeba Kumar | Data & Analytics</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- favicon (cache-busted) -->
+  <!-- favicon (update file name if needed) -->
   <link rel="icon" type="image/png" href="favicon_v4.png?v=10">
   <link rel="apple-touch-icon" href="favicon_v4.png?v=10">
   <link rel="shortcut icon" href="favicon_v4.png?v=10">
 
-  <!-- Font Awesome for icons -->
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <style>
-    :root{
-      --primary:#2563eb;
-      --dark:#020617;
-      --muted:#6b7280;
-    }
+    :root{ --primary:#2563eb; --dark:#020617; --muted:#6b7280; }
+    *{ box-sizing:border-box; margin:0; padding:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    body{ background:#020617; color:#fff; line-height:1.6; overflow-x:hidden; }
 
-    *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
-    body{background:#020617;color:#fff;line-height:1.6;overflow-x:hidden;}
-
-    /* ---------- Header & hero ---------- */
+    /* header */
     header{
       color:white;
-      padding:1.75rem 1.5rem 4.5rem;
+      padding:1.2rem 1rem 3.5rem;
       background: radial-gradient(circle at 0% 0%, #1d4ed8, #020617 45%, #0f172a 75%, #020617 100%);
       background-size:200% 200%;
       animation:gradientShift 16s ease-in-out infinite alternate;
-      position:relative;
-      overflow:hidden;
+      position:relative; overflow:hidden;
     }
     @keyframes gradientShift{0%{background-position:0% 0%}100%{background-position:100% 100%}}
+    #particles-canvas{ position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none; }
 
-    /* Particles canvas sits behind content */
-    #particles-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;}
+    .container{ max-width:1100px; margin:0 auto; position:relative; z-index:3; padding-inline:10px; }
 
-    .container{max-width:1100px;margin:0 auto;position:relative;z-index:2;padding-inline:8px;}
-
-    /* NAV layout */
-    nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:2.2rem;}
-    .nav-left{display:flex;align-items:center;gap:1rem;min-width:0;}
-    .logo img{height:110px;width:auto;object-fit:contain;border-radius:18px;background:transparent;box-shadow:0 10px 35px rgba(0,0,0,0.55);transition:transform .25s,box-shadow .25s}
-    .logo img:hover{transform:scale(1.06);box-shadow:0 18px 55px rgba(0,0,0,0.75)}
-
-    .nav-right{display:flex;align-items:center;gap:12px;}
-    .nav-links{display:flex;gap:18px;align-items:center;justify-content:flex-end;white-space:nowrap;}
-    .nav-links a{color:#e5e7eb;font-size:0.95rem;padding:6px 4px;transition:color .18s;display:inline-block;}
-    .nav-links a::after{content:"";display:block;height:2px;width:0;background:var(--primary);border-radius:999px;transition:width .18s}
-    .nav-links a:hover{color:#fff} .nav-links a:hover::after{width:100%}
-
-    .time-pill{
-      background: rgba(15,23,42,0.85);
-      border: 1px solid rgba(148,163,184,0.35);
-      padding:0.35rem 0.8rem;
-      border-radius:999px;
-      color:#dbeafe;
-      font-size:0.88rem;
-      display:inline-flex;
-      align-items:center;
-      gap:0.6rem;
-      box-shadow:0 6px 20px rgba(15,23,42,0.6);
-      white-space:nowrap;
+    /* nav layout: left-center-right with wrap for mobile */
+    nav{
+      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      margin-bottom:1.6rem;
     }
-    .time-pill .time-value{font-family:monospace;color:#e5f0ff;font-size:0.9rem}
 
-    .hamburger{display:none;width:44px;height:44px;border-radius:10px;background:rgba(15,23,42,0.6);border:1px solid rgba(148,163,184,0.2);align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,0.45)}
-    .hamburger .bar{width:20px;height:2px;background:#e5e7eb;border-radius:2px}
-    .mobile-menu{ display:none; position:fixed; top:74px; right:14px; background:rgba(6,10,20,0.95); border:1px solid rgba(148,163,184,0.12); padding:12px 14px; border-radius:12px; z-index:9998; box-shadow:0 25px 60px rgba(0,0,0,0.6); }
+    .nav-left{ display:flex; align-items:center; gap:12px; min-width:0; }
+    .logo img{ height:110px; width:auto; object-fit:contain; border-radius:16px; background:transparent; box-shadow:0 10px 35px rgba(0,0,0,0.55); transition:transform .25s; }
+    .logo img:hover{ transform:scale(1.04); }
+
+    /* center links: keep centered on wide screens, hidden on small */
+    .nav-center{ flex:1; display:flex; justify-content:center; align-items:center; min-width:0; }
+    .nav-links{ display:flex; gap:18px; align-items:center; white-space:nowrap; }
+    .nav-links a{ color:#e5e7eb; font-size:0.95rem; padding:6px 4px; transition:color .18s; display:inline-block; text-decoration:none; }
+    .nav-links a::after{ content:""; display:block; height:2px; width:0; background:var(--primary); border-radius:999px; transition:width .18s; }
+    .nav-links a:hover{ color:#fff } .nav-links a:hover::after{ width:100% }
+
+    /* right area: time and hamburger */
+    .nav-right{ display:flex; align-items:center; gap:10px; }
+    .time-pill{
+      background: rgba(15,23,42,0.9); border:1px solid rgba(148,163,184,0.3);
+      padding:0.36rem 0.9rem; border-radius:999px; color:#dbeafe; font-size:0.86rem;
+      display:inline-flex; align-items:center; gap:0.6rem; white-space:nowrap; box-shadow:0 6px 20px rgba(15,23,42,0.45);
+    }
+    .time-pill .time-value{ font-family:monospace; color:#eaf3ff; font-size:0.9rem; }
+
+    .hamburger{ display:none; width:44px; height:44px; border-radius:9px; background:rgba(6,10,20,0.6); border:1px solid rgba(148,163,184,0.12); align-items:center; justify-content:center; cursor:pointer; }
+    .hamburger .bar{ width:20px; height:2px; background:#e5e7eb; border-radius:2px; box-shadow:0 6px 0 #e5e7eb, 0 -6px 0 #e5e7eb; }
+
+    .mobile-menu{ display:none; position:fixed; top:72px; right:12px; background:rgba(6,10,20,0.98); border:1px solid rgba(148,163,184,0.12); padding:12px 14px; border-radius:12px; z-index:9998; box-shadow:0 25px 60px rgba(0,0,0,0.6); }
     .mobile-menu a{ display:block; padding:10px 6px; color:#e5e7eb; text-decoration:none; font-weight:600; }
     .mobile-menu a + a{ margin-top:6px; }
 
-    /* HERO text & profile */
-    .hero{ text-align:center; max-width:720px; margin:0 auto; animation:fadeUp .9s ease-out forwards; opacity:0; transform:translateY(18px); }
+    /* hero */
+    .hero{ text-align:center; max-width:780px; margin:0 auto; animation:fadeUp .9s ease-out forwards; opacity:0; transform:translateY(18px); padding-top:6px; }
     @keyframes fadeUp{ to{ opacity:1; transform:translateY(0); } }
+    .hero-badge{ display:inline-flex; align-items:center; gap:.45rem; padding:.35rem .85rem; border-radius:999px; background:rgba(15,23,42,0.75); border:1px solid rgba(148,163,184,0.6); margin-bottom:1rem; }
+    .hero-badge .dot{ width:8px; height:8px; border-radius:999px; background:#f97316; box-shadow:0 0 10px rgba(249,115,22,.8); }
 
-    .hero-title{ font-weight:800;margin-bottom:0.9rem;text-shadow:0 18px 40px rgba(0,0,0,0.45);line-height:1.02;font-size:clamp(1.9rem,5vw,3.1rem);white-space:normal;word-break:break-word;}
-    .hero-subtitle{font-size:1.02rem;color:#e5e7eb;margin-bottom:1.8rem;max-width:620px;margin-left:auto;margin-right:auto;}
+    .hero-title{ font-weight:800; margin-bottom:0.7rem; text-shadow:0 18px 40px rgba(0,0,0,0.45); line-height:1.02; font-size:clamp(1.8rem,5vw,3.4rem); word-break:break-word; }
+    .hero-subtitle{ font-size:1.02rem; color:#e5e7eb; margin-bottom:1.4rem; max-width:720px; margin-left:auto; margin-right:auto; }
 
-    .hero-badge{display:inline-flex;align-items:center;gap:.45rem;padding:.35rem .85rem;border-radius:999px;background:rgba(15,23,42,0.75);border:1px solid rgba(148,163,184,0.6);font-size:.78rem;margin-bottom:1.25rem;backdrop-filter:blur(8px)}
-    .hero-badge .dot{width:8px;height:8px;border-radius:999px;background:#f97316;box-shadow:0 0 10px rgba(249,115,22,.8)}
-
-    .hero-profile{ margin-top:1.4rem; display:flex; flex-direction:column; align-items:center; gap:.9rem; }
-    .hero-profile img{ width:200px; max-width:45vw; height:auto; border-radius:16px; border:4px solid #f9fafb; box-shadow:0 18px 40px rgba(15,23,42,0.9); background:white; object-fit:cover; transition:transform .25s,box-shadow .25s; }
+    .hero-profile{ margin-top:1.2rem; display:flex; flex-direction:column; align-items:center; gap:.9rem; }
+    .hero-profile img{ width:200px; max-width:42vw; height:auto; border-radius:16px; border:4px solid #f9fafb; box-shadow:0 18px 40px rgba(15,23,42,0.9); object-fit:cover; transition:transform .25s; }
     .hero-profile img:hover{ transform:translateY(-4px) scale(1.02); box-shadow:0 25px 55px rgba(15,23,42,1); }
 
-    .data-visual{display:flex;align-items:center;gap:8px;padding:.7rem 1.1rem;border-radius:999px;background: rgba(15,23,42,0.85);border:1px solid rgba(148,163,184,0.35);box-shadow:0 0 12px rgba(30,58,138,0.45),0 0 22px rgba(30,58,138,0.25);transition:transform .25s,box-shadow .25s;margin-top:.4rem}
-    .data-visual:hover{ transform:translateY(-3px) scale(1.03); box-shadow:0 0 18px rgba(59,130,246,0.55), 0 0 30px rgba(59,130,246,0.35) }
-    .data-visual-label{font-size:.75rem;color:#dbeafe;font-weight:600;text-shadow:0 0 6px rgba(96,165,250,0.55)}
-    .company-name{font-size:.70rem;color:#93c5fd;text-shadow:0 0 6px rgba(96,165,250,0.45)}
+    .data-visual{ display:flex; align-items:center; gap:8px; padding:.7rem 1.1rem; border-radius:999px; background: rgba(15,23,42,0.85); border:1px solid rgba(148,163,184,0.35); box-shadow:0 0 12px rgba(30,58,138,0.45),0 0 22px rgba(30,58,138,0.25); transition:transform .25s; margin-top:.4rem; }
+    .data-visual:hover{ transform:translateY(-3px) scale(1.03); box-shadow:0 0 18px rgba(59,130,246,0.55) }
+    .data-visual-label{ font-size:.75rem; color:#dbeafe; font-weight:600; text-shadow:0 0 6px rgba(96,165,250,0.55) }
+    .company-name{ font-size:.70rem; color:#93c5fd; text-shadow:0 0 6px rgba(96,165,250,0.45) }
 
-    .data-bar{width:6px;height:10px;border-radius:999px;background:linear-gradient(to top,#22c55e,#eab308);animation:pulseBar 1.7s ease-in-out infinite;transform-origin:bottom;box-shadow:0 0 5px rgba(34,197,94,0.6)}
-    .data-bar:nth-child(1){animation-delay:0s}
-    .data-bar:nth-child(2){animation-delay:.2s}
-    .data-bar:nth-child(3){animation-delay:.4s}
-    .data-bar:nth-child(7){animation-delay:.1s}
-    .data-bar:nth-child(8){animation-delay:.3s}
-    .data-bar:nth-child(9){animation-delay:.5s}
-    @keyframes pulseBar{0%,100%{height:10px;opacity:.5}50%{height:20px;opacity:1}}
+    .data-bar{ width:6px; height:10px; border-radius:999px; background:linear-gradient(to top,#22c55e,#eab308); animation:pulseBar 1.7s ease-in-out infinite; transform-origin:bottom; box-shadow:0 0 5px rgba(34,197,94,0.6); }
+    .data-bar:nth-child(1){ animation-delay:0 }
+    .data-bar:nth-child(2){ animation-delay:.18s }
+    .data-bar:nth-child(3){ animation-delay:.36s }
+    .data-bar:nth-child(7){ animation-delay:.1s }
+    .data-bar:nth-child(8){ animation-delay:.28s }
+    .data-bar:nth-child(9){ animation-delay:.46s }
+    @keyframes pulseBar{ 0%,100%{ height:10px; opacity:.5 } 50%{ height:20px; opacity:1 } }
 
     /* main sections */
     main{ background: radial-gradient(circle at top, #0f172a 0, #020617 40%, #020617 100%); }
-    section{ padding:3.2rem 1.5rem; }
-    .section-inner{ max-width:1100px;margin:0 auto;background:rgba(15,23,42,0.92);border-radius:22px;padding:2.2rem 2rem;border:1px solid rgba(148,163,184,.5);box-shadow:0 18px 45px rgba(15,23,42,.7);color:#e5e7eb; }
-    .section-header{ display:flex;justify-content:space-between;align-items:center;margin-bottom:1.75rem;gap:1rem }
-    .section-title{ font-size:1.45rem;font-weight:700 }
-    .section-pill{ font-size:.75rem;padding:.25rem .65rem;border-radius:999px;border:1px solid rgba(148,163,184,.6);color:#cbd5f5 }
+    section{ padding:3.2rem 1rem; }
+    .section-inner{ max-width:1100px; margin:0 auto; background:rgba(15,23,42,0.92); border-radius:22px; padding:2.2rem 2rem; border:1px solid rgba(148,163,184,.5); box-shadow:0 18px 45px rgba(15,23,42,.7); color:#e5e7eb; }
+    .section-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:1.75rem; gap:1rem; }
+    .section-title{ font-size:1.45rem; font-weight:700; }
+    .section-pill{ font-size:.75rem; padding:.25rem .65rem; border-radius:999px; border:1px solid rgba(148,163,184,.6); color:#cbd5f5; }
 
     .grid-2{ display:grid; grid-template-columns: minmax(0,1.3fr) minmax(0,1fr); gap:2.2rem; }
-    .section-text p{ color:#e5e7eb; font-size:.98rem }
-    .section-text p + p{ margin-top:.7rem }
-
-    .tag-list{ display:flex; flex-wrap:wrap; gap:.6rem }
-    .tag{ font-size:.82rem;padding:.35rem .8rem;border-radius:999px;background:rgba(15,23,42,0.9);border:1px solid rgba(148,163,184,0.8);color:#e5e7eb;box-shadow:0 8px 18px rgba(15,23,42,0.8);transition:transform .18s,box-shadow .18s,border-color .18s,background .18s;cursor:default}
-    .tag:hover{ transform:translateY(-2px); box-shadow:0 12px 24px rgba(15,23,42,1); border-color:var(--primary); background:rgba(15,23,42,1) }
+    .tag-list{ display:flex; flex-wrap:wrap; gap:.6rem; }
+    .tag{ font-size:.82rem; padding:.35rem .8rem; border-radius:999px; background:rgba(15,23,42,0.9); border:1px solid rgba(148,163,184,0.8); color:#e5e7eb; }
 
     .contact-box{ background:rgba(15,23,42,0.96); border-radius:18px; padding:1.6rem 1.8rem; border:1px solid rgba(148,163,184,0.6); margin-bottom:1.2rem; }
-    .contact-box p{ font-size:.98rem; margin-bottom:.5rem; }
-    .contact-box i{ margin-right:.45rem; color:#60a5fa; }
-    .contact-box a{ color:#bfdbfe; } .contact-box a:hover{text-decoration:underline;}
-    .btn-primary{ display:inline-flex; align-items:center; justify-content:center; gap:.35rem; margin-top:1rem; margin-right:.7rem; padding:.8rem 1.4rem; border-radius:999px; background:linear-gradient(to right,#2563eb,#4f46e5); color:white; border:none; cursor:pointer; box-shadow:0 16px 35px rgba(37,99,235,.55); transition:transform .18s, box-shadow .18s, filter .18s; }
-    .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 22px 40px rgba(37,99,235,.7); filter:brightness(1.05); }
+    .btn-primary{ display:inline-flex; align-items:center; gap:.35rem; padding:.8rem 1.4rem; border-radius:999px; background:linear-gradient(to right,#2563eb,#4f46e5); color:white; border:none; cursor:pointer; box-shadow:0 16px 35px rgba(37,99,235,.55); }
 
     footer{ text-align:center; padding:1.8rem 1.5rem 2.2rem; font-size:.78rem; color:#94a3b8; background:#020617; border-top:1px solid rgba(30,64,175,.6) }
 
-    /* reveal helper */
     .reveal-on-scroll{ opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease; }
     .reveal-visible{ opacity:1; transform:translateY(0); }
 
-    /* responsive */
-    @media (max-width:920px){ .logo img{ height:96px; } .time-pill{ font-size:.85rem; padding:.32rem .7rem; } }
-    @media (max-width:700px){ .nav-links{ display:none; } .hamburger{ display:flex; } .nav-right{ gap:8px; } .time-pill{ display:inline-flex; } }
-    @media (max-width:480px){ .logo img{ height:84px; } .hero-title{ font-size: clamp(1.4rem, 6vw, 2.1rem); } .hero-profile img{ width:160px; } .time-pill{ font-size:.8rem; padding:.28rem .6rem } }
-    @media (max-width:360px){ .logo img{ height:76px; } .hero-title{ font-size:1.6rem; } }
+    /* fireworks canvas */
+    #fireworks-canvas{ position:fixed; inset:0; pointer-events:none; z-index:9999; }
 
-    /* fireworks overlay canvas */
-    #fireworks-canvas{ position: fixed; inset:0; pointer-events:none; z-index:9999; }
+    /* responsive rules */
+    @media (max-width:920px){
+      .logo img{ height:96px; }
+      .time-pill{ font-size:.86rem; padding:.32rem .7rem; }
+    }
+    @media (max-width:700px){
+      .nav-center{ display:none; }       /* hide center links on small screens */
+      .hamburger{ display:flex; }
+      .mobile-menu{ top:68px; right:8px; }
+    }
+    @media (max-width:480px){
+      .logo img{ height:84px; }
+      .hero-title{ font-size: clamp(1.4rem,6vw,2.2rem); }
+      .hero-profile img{ width:160px; }
+      .time-pill{ font-size:.82rem; padding:.28rem .6rem; }
+    }
+    @media (max-width:360px){
+      .logo img{ height:72px; }
+      header{ padding-bottom:3rem; }
+    }
   </style>
 </head>
 
 <body>
+  <header>
+    <canvas id="particles-canvas"></canvas>
 
-<header>
-  <canvas id="particles-canvas"></canvas>
-
-  <div class="container">
-    <nav>
-      <div class="nav-left">
-        <div class="logo"><img src="logo.png" alt="Ruban Jeba Kumar Logo"></div>
-      </div>
-
-      <div class="nav-right">
-        <div class="nav-links" id="navLinks">
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
+    <div class="container">
+      <nav>
+        <div class="nav-left">
+          <div class="logo"><img src="logo.png" alt="Ruban Jeba Kumar Logo"></div>
         </div>
 
-        <!-- removed the leading 'IST' label - only the date/time value is shown -->
-        <div class="time-pill" id="ist-time-pill" title="Indian Standard Time (IST)">
-          <span class="time-value" id="ist-time">-- · --:--:-- IST</span>
+        <div class="nav-center">
+          <div class="nav-links" id="navLinks">
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+          </div>
         </div>
 
-        <!-- hamburger for mobile -->
-        <div class="hamburger" id="hamburger" aria-label="Open menu" title="Open menu">
-          <div class="bar"></div>
-        </div>
-      </div>
-    </nav>
-
-    <!-- mobile menu -->
-    <div class="mobile-menu" id="mobileMenu" style="display:none;">
-      <a href="#about" onclick="toggleMobileMenu()">About</a>
-      <a href="#contact" onclick="toggleMobileMenu()">Contact</a>
-    </div>
-
-    <div class="hero reveal-on-scroll">
-      <div class="hero-badge"><span class="dot"></span>Trailblazer of the Month – Nov 2025 · Inflecto Technologies</div>
-
-      <h1 class="hero-title">Data &amp; Analytics Professional</h1>
-
-      <p class="hero-subtitle">Turning raw data into clear insights using SQL, data pipelines, and analytics to help teams make better, faster decisions.</p>
-
-      <div class="hero-profile">
-        <img src="profile.jpg" alt="Ruban Jeba Kumar">
-
-        <div class="data-visual">
-          <div class="data-bar"></div>
-          <div class="data-bar"></div>
-          <div class="data-bar"></div>
-
-          <div style="display:flex;flex-direction:column;align-items:center;line-height:1.2;">
-            <div class="data-visual-label">IDMC Consultant</div>
-            <span class="company-name">Inflecto Technologies</span>
+        <div class="nav-right">
+          <div class="time-pill" id="timePill" title="Indian Standard Time">
+            <span id="ist-time" class="time-value">-- · --:--:-- IST</span>
           </div>
 
-          <div class="data-bar"></div>
-          <div class="data-bar"></div>
-          <div class="data-bar"></div>
+          <div class="hamburger" id="hamburger" aria-label="Open menu" title="Menu">
+            <div class="bar"></div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</header>
+      </nav>
 
-<!-- fireworks overlay canvas -->
-<canvas id="fireworks-canvas"></canvas>
-
-<main>
-  <section id="about">
-    <div class="section-inner reveal-on-scroll">
-      <div class="section-header">
-        <h2 class="section-title">Profile &amp; Skills</h2>
+      <!-- mobile menu -->
+      <div class="mobile-menu" id="mobileMenu" style="display:none;">
+        <a href="#about" onclick="toggleMobileMenu()">About</a>
+        <a href="#contact" onclick="toggleMobileMenu()">Contact</a>
       </div>
 
-      <div class="grid-2">
-        <div class="section-text">
-          <p>I’m <strong>Ruban Jeba Kumar</strong>, an experienced ETL Developer with 4+ years of hands-on experience in data engineering and analytics. I specialize in SQL, data pipelines, ETL processes, and building reliable, scalable data systems. I enjoy developing performance-optimized queries and clean data models.</p>
-          <p>I care about clarity, performance, and reliability in everything I build—from stored procedures and delta frameworks to job monitoring and production-ready datasets.</p>
-        </div>
+      <div class="hero reveal-on-scroll">
+        <div class="hero-badge"><span class="dot"></span>Trailblazer of the Month – Nov 2025 · Inflecto Technologies</div>
 
-        <div>
-          <h3 style="font-size:1.05rem;margin-bottom:.9rem;">Core Skills</h3>
-          <div class="tag-list">
-            <span class="tag">SQL</span>
-            <span class="tag">PostgreSQL</span>
-            <span class="tag">Amazon Redshift</span>
-            <span class="tag">ETL / ELT</span>
-            <span class="tag">Data Modeling</span>
-            <span class="tag">Data Warehousing</span>
-            <span class="tag">Informatica IDMC</span>
-            <span class="tag">Tableau</span>
-            <span class="tag">Salesforce</span>
+        <h1 class="hero-title">Data &amp; Analytics Professional</h1>
+
+        <p class="hero-subtitle">Turning raw data into clear insights using SQL, data pipelines, and analytics to help teams make better, faster decisions.</p>
+
+        <div class="hero-profile">
+          <img src="profile.jpg" alt="Ruban Jeba Kumar">
+          <div class="data-visual">
+            <div class="data-bar"></div><div class="data-bar"></div><div class="data-bar"></div>
+
+            <div style="display:flex;flex-direction:column;align-items:center;line-height:1.1;">
+              <div class="data-visual-label">IDMC Consultant</div>
+              <span class="company-name">Inflecto Technologies</span>
+            </div>
+
+            <div class="data-bar"></div><div class="data-bar"></div><div class="data-bar"></div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </header>
 
-  <section id="contact">
-    <div class="section-inner reveal-on-scroll">
-      <div class="section-header">
-        <h2 class="section-title">Let’s Connect</h2>
-        <span class="section-pill">Open for Opportunities</span>
+  <!-- fireworks overlay -->
+  <canvas id="fireworks-canvas"></canvas>
+
+  <main>
+    <section id="about">
+      <div class="section-inner reveal-on-scroll">
+        <div class="section-header">
+          <h2 class="section-title">Profile &amp; Skills</h2>
+        </div>
+
+        <div class="grid-2">
+          <div class="section-text">
+            <p>I’m <strong>Ruban Jeba Kumar</strong>, an experienced ETL Developer with 4+ years of hands-on experience in data engineering and analytics. I specialize in SQL, data pipelines, ETL processes, and building reliable, scalable data systems. I enjoy developing performance-optimized queries and clean data models.</p>
+            <p>I care about clarity, performance, and reliability in everything I build—from stored procedures and delta frameworks to job monitoring and production-ready datasets.</p>
+          </div>
+
+          <div>
+            <h3 style="font-size:1.05rem;margin-bottom:.9rem;">Core Skills</h3>
+            <div class="tag-list">
+              <span class="tag">SQL</span>
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">Amazon Redshift</span>
+              <span class="tag">ETL / ELT</span>
+              <span class="tag">Data Modeling</span>
+              <span class="tag">Data Warehousing</span>
+              <span class="tag">Informatica IDMC</span>
+              <span class="tag">Tableau</span>
+              <span class="tag">Salesforce</span>
+            </div>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="contact-box">
-        <p><i class="fa-solid fa-envelope"></i><strong>Email:</strong> <a href="mailto:iruban522@gmail.com">iruban522@gmail.com</a></p>
-        <p><i class="fa-brands fa-linkedin"></i><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/i-ruban-jebakumar-32a47027b" target="_blank">linkedin.com/in/i-ruban-jebakumar-32a47027b</a></p>
+    <section id="contact">
+      <div class="section-inner reveal-on-scroll">
+        <div class="section-header">
+          <h2 class="section-title">Let’s Connect</h2>
+          <span class="section-pill">Open for Opportunities</span>
+        </div>
 
-        <button class="btn-primary" onclick="window.location.href='Ruban_Jeba_Kumar_Resume.pdf'">📄 Download My Resume</button>
-        <button class="btn-primary" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSdRHW8ak7fbTjV_SZ9fofSies3WOwacZoBs3l5f_n8YNfzSXw/viewform','_blank')">✉️ Send Message via Google Form</button>
+        <div class="contact-box">
+          <p><i class="fa-solid fa-envelope"></i><strong> Email:</strong> <a href="mailto:iruban522@gmail.com">iruban522@gmail.com</a></p>
+          <p><i class="fa-brands fa-linkedin"></i><strong> LinkedIn:</strong> <a href="https://www.linkedin.com/in/i-ruban-jebakumar-32a47027b" target="_blank">linkedin.com/in/i-ruban-jebakumar-32a47027b</a></p>
+
+          <button class="btn-primary" onclick="window.location.href='Ruban_Jeba_Kumar_Resume.pdf'">📄 Download My Resume</button>
+          <button class="btn-primary" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSdRHW8ak7fbTjV_SZ9fofSies3WOwacZoBs3l5f_n8YNfzSXw/viewform','_blank')">✉️ Send Message via Google Form</button>
+        </div>
+
+        <p class="contact-intro">Feel free to reach out for data engineering, ETL, or analytics opportunities. I’m always happy to discuss interesting data problems.</p>
       </div>
+    </section>
+  </main>
 
-      <p class="contact-intro">Feel free to reach out for data engineering, ETL, or analytics opportunities. I’m always happy to discuss interesting data problems.</p>
-    </div>
-  </section>
-</main>
+  <footer>© <span id="year"></span> Ruban Jeba Kumar · Data &amp; Analytics</footer>
 
-<footer>© <span id="year"></span> Ruban Jeba Kumar · Data &amp; Analytics</footer>
+  <script>
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-<script>
-  // footer year
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  // reveal on scroll
-  const revealEls = document.querySelectorAll('.reveal-on-scroll');
-  const observer = new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){ entry.target.classList.add('reveal-visible'); observer.unobserve(entry.target); }
-    });
-  },{threshold:0.12});
-  revealEls.forEach(el=>observer.observe(el));
-
-  // ========== background particles ==========
-  const canvas = document.getElementById('particles-canvas');
-  const ctx = canvas.getContext('2d');
-  let particles = [], W, H;
-  function resizeCanvas(){ W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; }
-  function createParticles(n){
-    particles = [];
-    for(let i=0;i<n;i++){
-      particles.push({
-        x: Math.random()*W,
-        y: Math.random()*H,
-        r: Math.random()*2+0.6,
-        a: Math.random()*0.45+0.05,
-        vx: (Math.random()-0.5)*0.25,
-        vy: (Math.random()-0.5)*0.25
+    // scroll reveal
+    const revealEls = document.querySelectorAll('.reveal-on-scroll');
+    const observer = new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){ entry.target.classList.add('reveal-visible'); observer.unobserve(entry.target); }
       });
+    },{threshold:0.12});
+    revealEls.forEach(el=>observer.observe(el));
+
+    // PARTICLES (background)
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [], W, H;
+    function resizeCanvas(){ W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; }
+    function createParticles(n){
+      particles = [];
+      for(let i=0;i<n;i++){
+        particles.push({ x:Math.random()*W, y:Math.random()*H, r:Math.random()*2+0.6, a:Math.random()*0.45+0.05, vx:(Math.random()-0.5)*0.25, vy:(Math.random()-0.5)*0.25 });
+      }
     }
-  }
-  function drawParticles(){
-    ctx.clearRect(0,0,W,H);
-    particles.forEach(p=>{
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle = 'rgba(129,140,248,'+p.a+')';
-      ctx.fill();
-      p.x += p.vx; p.y += p.vy;
-      if(p.x<0) p.x=W; if(p.x>W) p.x=0; if(p.y<0) p.y=H; if(p.y>H) p.y=0;
-    });
-    requestAnimationFrame(drawParticles);
-  }
-  function initParticles(){ resizeCanvas(); createParticles(Math.round(window.innerWidth/18)); drawParticles(); }
-  window.addEventListener('resize', ()=>{ resizeCanvas(); createParticles(Math.round(window.innerWidth/18)); });
-  initParticles();
-
-  // ========== IST clock (no leading label) ==========
-  function updateISTClock(){
-    const now = new Date();
-    const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-    const istOffset = 5.5 * 60 * 60 * 1000;
-    const ist = new Date(utc + istOffset);
-
-    const optionsDate = { year:'numeric', month:'short', day:'2-digit' };
-    const dateStr = ist.toLocaleDateString('en-GB', optionsDate);
-    const pad = n => String(n).padStart(2,'0');
-    const timeStr = `${pad(ist.getHours())}:${pad(ist.getMinutes())}:${pad(ist.getSeconds())}`;
-    const display = `${dateStr} · ${timeStr} IST`;
-
-    const el = document.getElementById('ist-time');
-    if(el) el.textContent = display;
-  }
-  updateISTClock();
-  setInterval(updateISTClock, 1000);
-
-  // ========== Mobile hamburger toggle ==========
-  const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobileMenu');
-  function toggleMobileMenu(){
-    if(mobileMenu.style.display === 'block'){ mobileMenu.style.display = 'none'; hamburger.classList.remove('open'); }
-    else{ mobileMenu.style.display = 'block'; hamburger.classList.add('open'); }
-  }
-  hamburger.addEventListener('click', (e)=>{ e.stopPropagation(); toggleMobileMenu(); });
-  // close when clicking outside
-  document.addEventListener('click',(e)=>{
-    const target = e.target;
-    if(!target.closest('#mobileMenu') && !target.closest('#hamburger')){
-      mobileMenu.style.display = 'none';
-      hamburger.classList.remove('open');
-    }
-  });
-
-  // ========== Fireworks on click (disabled for profile/idmc/main) ==========
-  const fwCanvas = document.getElementById('fireworks-canvas');
-  const fwCtx = fwCanvas.getContext('2d');
-  let fwW, fwH;
-  function resizeFw(){ fwW = fwCanvas.width = window.innerWidth; fwH = fwCanvas.height = window.innerHeight; }
-  window.addEventListener('resize', resizeFw);
-  resizeFw();
-
-  let fwParticles = [];
-  function spawnFirework(x,y){
-    const colors = ['#ff4d4f','#ffd166','#7ee787','#7cc7ff','#d65cff','#ff9f1c'];
-    const count = 36 + Math.round(Math.random()*16);
-    for(let i=0;i<count;i++){
-      const angle = (Math.PI*2) * (i/count);
-      const speed = 1.8 + Math.random()*3.2;
-      fwParticles.push({
-        x: x,
-        y: y,
-        vx: Math.cos(angle) * speed * (0.6 + Math.random()*0.9),
-        vy: Math.sin(angle) * speed * (0.6 + Math.random()*0.9),
-        life: 60 + Math.random()*40,
-        age: 0,
-        r: 1 + Math.random()*2.2,
-        color: colors[Math.floor(Math.random()*colors.length)]
+    function drawParticles(){
+      ctx.clearRect(0,0,W,H);
+      particles.forEach(p=>{
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle = 'rgba(129,140,248,'+p.a+')';
+        ctx.fill();
+        p.x += p.vx; p.y += p.vy;
+        if(p.x<0) p.x=W; if(p.x>W) p.x=0; if(p.y<0) p.y=H; if(p.y>H) p.y=0;
       });
+      requestAnimationFrame(drawParticles);
     }
-  }
-  function animateFireworks(){
-    fwCtx.clearRect(0,0,fwW,fwH);
-    for(let i = fwParticles.length-1; i>=0; i--){
-      const p = fwParticles[i];
-      p.x += p.vx; p.y += p.vy;
-      p.vy += 0.03;
-      p.vx *= 0.995; p.vy *= 0.995;
-      p.age++;
-      const alpha = Math.max(0, 1 - (p.age / p.life));
-      fwCtx.beginPath();
-      fwCtx.fillStyle = p.color;
-      fwCtx.globalAlpha = alpha;
-      fwCtx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-      fwCtx.fill();
-      fwCtx.globalAlpha = 1;
-      if(p.age >= p.life) fwParticles.splice(i,1);
+    function initParticles(){ resizeCanvas(); createParticles(Math.round(window.innerWidth/18)); drawParticles(); }
+    window.addEventListener('resize', ()=>{ resizeCanvas(); createParticles(Math.round(window.innerWidth/18)); });
+    initParticles();
+
+    // IST clock (no leading "IST" label)
+    function updateISTClock(){
+      const now = new Date();
+      const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+      const istOffset = 5.5 * 60 * 60 * 1000;
+      const ist = new Date(utc + istOffset);
+      const optionsDate = { year:'numeric', month:'short', day:'2-digit' };
+      const dateStr = ist.toLocaleDateString('en-GB', optionsDate);
+      const pad = n => String(n).padStart(2,'0');
+      const timeStr = `${pad(ist.getHours())}:${pad(ist.getMinutes())}:${pad(ist.getSeconds())}`;
+      const display = `${dateStr} · ${timeStr} IST`;
+      const el = document.getElementById('ist-time') || document.getElementById('timePill');
+      if(el) document.getElementById('ist-time').textContent = display;
     }
-    requestAnimationFrame(animateFireworks);
-  }
-  animateFireworks();
+    updateISTClock();
+    setInterval(updateISTClock, 1000);
 
-  // Only spawn fireworks if click is NOT inside: .hero-profile, .data-visual, or inside <main>
-  document.addEventListener('click', (ev)=>{
-    // if target is interactive element, ignore (anchor, button, inputs)
-    const tag = ev.target.tagName ? ev.target.tagName.toLowerCase() : '';
-    if(['a','button','input','textarea','select','svg','path'].includes(tag)) return;
+    // mobile hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    function toggleMobileMenu(){
+      if(mobileMenu.style.display === 'block'){ mobileMenu.style.display = 'none'; hamburger.classList.remove('open'); }
+      else{ mobileMenu.style.display = 'block'; hamburger.classList.add('open'); }
+    }
+    hamburger.addEventListener('click', (e)=>{ e.stopPropagation(); toggleMobileMenu(); });
+    document.addEventListener('click', (e)=>{
+      if(!e.target.closest('#mobileMenu') && !e.target.closest('#hamburger')){
+        mobileMenu.style.display = 'none'; hamburger.classList.remove('open');
+      }
+    });
 
-    // if clicked inside profile section or the IDMC badge or anywhere in main content -> DO NOT spawn fireworks
-    if(ev.target.closest && (ev.target.closest('.hero-profile') || ev.target.closest('.data-visual') || ev.target.closest('main'))) {
-      return;
+    // FIREWORKS: support click + touch on mobile
+    const fwCanvas = document.getElementById('fireworks-canvas');
+    const fwCtx = fwCanvas.getContext('2d');
+    function resizeFw(){ fwCanvas.width = window.innerWidth; fwCanvas.height = window.innerHeight; }
+    window.addEventListener('resize', resizeFw);
+    resizeFw();
+
+    let fwParticles = [];
+    function spawnFirework(x,y){
+      const colors = ['#ff4d4f','#ffd166','#7ee787','#7cc7ff','#d65cff','#ff9f1c'];
+      const count = 36 + Math.round(Math.random()*18);
+      for(let i=0;i<count;i++){
+        const angle = (Math.PI*2) * (i/count);
+        const speed = 1.6 + Math.random()*3.2;
+        fwParticles.push({
+          x, y,
+          vx: Math.cos(angle)*speed*(0.6+Math.random()*0.9),
+          vy: Math.sin(angle)*speed*(0.6+Math.random()*0.9),
+          life: 60 + Math.random()*40,
+          age: 0,
+          r: 1 + Math.random()*2.6,
+          color: colors[Math.floor(Math.random()*colors.length)]
+        });
+      }
+    }
+    function animateFireworks(){
+      fwCtx.clearRect(0,0,fwCanvas.width,fwCanvas.height);
+      for(let i = fwParticles.length-1; i>=0; i--){
+        const p = fwParticles[i];
+        p.x += p.vx; p.y += p.vy;
+        p.vy += 0.03; p.vx *= 0.995; p.vy *= 0.995;
+        p.age++;
+        const alpha = Math.max(0, 1 - (p.age / p.life));
+        fwCtx.beginPath();
+        fwCtx.fillStyle = p.color;
+        fwCtx.globalAlpha = alpha;
+        fwCtx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        fwCtx.fill();
+        fwCtx.globalAlpha = 1;
+        if(p.age >= p.life) fwParticles.splice(i,1);
+      }
+      requestAnimationFrame(animateFireworks);
+    }
+    animateFireworks();
+
+    // helper: determine if a point is over background (body/html) or particles canvas
+    function isBackgroundAtPoint(clientX, clientY){
+      const topEl = document.elementFromPoint(clientX, clientY);
+      if(!topEl) return false;
+      const tag = topEl.tagName ? topEl.tagName.toLowerCase() : '';
+      const id = topEl.id || '';
+      // allow background only when the top element is body/html or the particles canvas
+      return tag === 'body' || tag === 'html' || id === 'particles-canvas' || id === 'fireworks-canvas';
     }
 
-    // disable on small screens to preserve perf
-    if(window.innerWidth < 600) return;
+    // click handler for desktop
+    document.addEventListener('click', (ev) => {
+      const x = ev.clientX, y = ev.clientY;
+      if(!isBackgroundAtPoint(x, y)) return;
+      spawnFirework(x, y);
+      setTimeout(()=>spawnFirework(x + (Math.random()*80-40), y + (Math.random()*80-40)), 80);
+    });
 
-    const x = ev.clientX, y = ev.clientY;
-    spawnFirework(x,y);
-    setTimeout(()=>spawnFirework(x + (Math.random()*80-40), y + (Math.random()*80-40)), 90);
-  });
+    // touch handler for mobile (touchstart)
+    document.addEventListener('touchstart', (ev) => {
+      // use first touch only
+      const t = ev.touches[0];
+      if(!t) return;
+      const x = t.clientX, y = t.clientY;
+      // if touch is over background, spawn fireworks
+      if(isBackgroundAtPoint(x, y)){
+        spawnFirework(x, y);
+        setTimeout(()=>spawnFirework(x + (Math.random()*80-40), y + (Math.random()*80-40)), 90);
+      }
+    }, { passive:true });
 
-  // memory guard
-  setInterval(()=>{ if(fwParticles.length>1200) fwParticles.splice(0, fwParticles.length-800); }, 2500);
-
-</script>
-
+    // memory guard
+    setInterval(()=>{ if(fwParticles.length>1400) fwParticles.splice(0, fwParticles.length-900); }, 3000);
+  </script>
 </body>
 </html>
